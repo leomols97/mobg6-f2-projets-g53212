@@ -15,3 +15,5 @@ B. Liste des événements passés ainsi que la possibilité de cliquer sur chaqu
 E. Liste des bières promues ainsi que les brasseries associées
 F. Liste des artistes promus ainsi qu’un lien vers leur page Instagram ainsi que la possibilité de voir leur interview qui a lieu après leur live
 G. Possibilité de rechercher un artiste / brasserie / bière
+
+
