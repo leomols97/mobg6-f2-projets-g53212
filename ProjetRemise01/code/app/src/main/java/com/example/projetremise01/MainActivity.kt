@@ -1,7 +1,6 @@
 package com.example.projetremise01
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -24,13 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun connect_button(view: View?)
     {
-        val toast = Toast.makeText(applicationContext, "Hello Javatpoint", Toast.LENGTH_SHORT)
-        if (!isValidEmail(binding.mailAdress.toString()))
+        val toast = Toast.makeText(applicationContext, "L'adresse mail n'est pas correctement entrée", Toast.LENGTH_SHORT)
+        if (!isValidEmail(binding.mailAdress.toString())) {
             toast.show()
-
+        }
     }
 
-    fun isValidEmail(target: CharSequence?): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    private fun isValidEmail(email: String): Boolean {
+        val pattern = Patterns.EMAIL_ADDRESS
+        return pattern.matcher(email).matches()
     }
 }
