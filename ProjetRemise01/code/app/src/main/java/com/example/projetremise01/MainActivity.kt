@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.projetremise01.databinding.ActivityMainBinding
+import java.util.regex.Pattern
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,14 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun connect_button(view: View?)
     {
-        val toast = Toast.makeText(applicationContext, "L'adresse mail n'est pas correctement entrée", Toast.LENGTH_SHORT)
         if (!isValidEmail(binding.mailAdress.toString())) {
+            val toast = Toast.makeText(applicationContext, "L'adresse mail n'est pas correctement entrée", Toast.LENGTH_SHORT)
             toast.show()
         }
     }
 
     private fun isValidEmail(email: String): Boolean {
-        val pattern = Patterns.EMAIL_ADDRESS
-        return pattern.matcher(email).matches()
+        var pattern = Regex.fromLiteral("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+        print(pattern.matches(email))
+        return pattern.matches(email)
     }
 }
