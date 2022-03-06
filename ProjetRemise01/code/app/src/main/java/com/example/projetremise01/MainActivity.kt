@@ -1,13 +1,12 @@
 package com.example.projetremise01
 
 import android.os.Bundle
-import android.util.Patterns
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.projetremise01.databinding.ActivityMainBinding
-import java.util.regex.Pattern
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +19,12 @@ class MainActivity : AppCompatActivity() {
         binding.connect.setOnClickListener {
             connect_button(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.navdrawer, menu)
+        return true
     }
 
     private fun connect_button(view: View?)

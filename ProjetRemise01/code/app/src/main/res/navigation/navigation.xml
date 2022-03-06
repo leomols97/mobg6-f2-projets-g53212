@@ -9,11 +9,7 @@
         android:id="@+id/aboutFragment"
         android:name="com.example.android.navigation.AboutFragment"
         android:label="fragment_about"
-        tools:layout="@layout/fragment_about" >
-        <action
-            android:id="@+id/action_aboutFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_about" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.projetremise01.MainActivity"
