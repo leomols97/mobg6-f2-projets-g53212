@@ -1,5 +1,6 @@
 package com.example.projetremise01
 
+//import android.R
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.navdrawer, menu)
+        inflater.inflate(R.menu.navdrawer_menu, menu)
         return true
     }
 
