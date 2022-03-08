@@ -1,44 +1,41 @@
 package com.example.projetremise01
 
-//import android.R
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.projetremise01.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+//    private lateinit var binding: ActivityMainBinding
+    private lateinit var drawerLayout: DrawerLayout
+//    lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.connect.setOnClickListener {
-            connect_button(it)
-        }
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        drawerLayout = binding.drawerLayout
+        val navController = this.findNavController(R.id.myNavHostFragment)
+//        binding = ActivityMainBinding.inflate(layoutInflater)
+//        val navHostFragment =  supportFragmentManager.findFragmentById(R.id.navigation) as NavHostFragment
+//        this.navController = navHostFragment.navController
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+        NavigationUI.setupWithNavController(binding.navView, navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.navdrawer_menu, menu)
-        return true
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        return NavigationUI.navigateUp(navController, drawerLayout)
     }
 
-    private fun connect_button(view: View?)
-    {
-        if (!isValidEmail(binding.mailAdress.toString())) {
-            val toast = Toast.makeText(applicationContext, "L'adresse mail n'est pas correctement entrée", Toast.LENGTH_SHORT)
-            toast.show()
-        }
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        var pattern = Regex.fromLiteral("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
-        print(pattern.matches(email))
-        return pattern.matches(email)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.navdrawer_menu, menu)
+//        return true
+//    }
 }

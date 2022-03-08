@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/aboutFragment"
+        android:id="@id/to_connect_fragment"
+        android:title="@string/se_connecter" />
+    <item
+        android:id="@id/to_about_fragment"
         android:title="@string/about" />
 </menu>

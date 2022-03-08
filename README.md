@@ -28,7 +28,7 @@ G. Possibilité de rechercher un artiste / brasserie / bière
 
 L'application conserve un historique des recherches effectuées. Cet historique est persisté dans la base de données locale de l'application si nécessaire et mise à jour lors d'une interaction de l'utilisateur
 
-Les données relatives aux comptes utilisateurs, aux notes et aux critiques sont persistées via firebase ou Heroku : <url du projet firebase>
+Les données relatives aux comptes utilisateurs, aux notes et aux critiques sont persistées via firebase ou Heroku : https://console.firebase.google.com/u/0/project/lemenestrel-ae033/overview
 
 ## Backend
 

@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -13,12 +14,103 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bd5c78d-f342-4142-a37d-c5b40b4f8591" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_apk_debug_output-metadata 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_data_binding_artifact_debug_com.example.projetremise01-br 2.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_data_binding_artifact_debug_com.example.projetremise01-setter_store 2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_dex_debug_mergeProjectDexDebug_10_classes 2.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_dex_debug_mergeProjectDexDebug_11_classes 2.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_dex_debug_mergeProjectDexDebug_12_classes 2.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_dex_debug_mergeProjectDexDebug_9_classes 2.dex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_BR 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_BuildConfig 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_DataBinderMapperImpl 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_DataBinderMapperImpl$InnerBrLookup 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_DataBinderMapperImpl$InnerLayoutIdLookup 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_DataBindingTriggerClass 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_databinding_ActivityMainBinding 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_javac_debug_classes_com_example_projetremise01_databinding_ActivityMainBindingImpl 2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_manifest_merge_blame_file_debug_manifest-merger-blame-debug-report 2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_merged_manifest_debug_AndroidManifest 2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/DELETED_FILES_PATHS/_Users_leopoldmols_Desktop_ESI_3eme_Quadri2_MOBG6_Projet_g53212_ProjetRemise01_code_app_build_intermediates_symbol_list_with_package_name_debug_package-aware-r 2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetremise01/ConnectFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/connect_fragment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/options_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/network_security_config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/MOBG5 - Projet - Remise1.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/androidTest/java/com/example/projetremise01/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/java/com/example/projetremise01/AboutFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/java/com/example/projetremise01/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/layout/fragment_about.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/menu/navdrawer_menu.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/navigation/navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/test/java/com/example/projetremise01/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/Visuals.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/projetremise01/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/projetremise01/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/navdrawer.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_about.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/navdrawer_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" afterPath="$PROJECT_DIR$/../g53212-bff7bdcaf278b08500a8d6bf1950ec3c51836bfb/ProjetRemise01/code/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +127,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -49,6 +142,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
+  </component>
   <component name="ProjectId" id="261aoJzqc7OWspmwdocRdScVOc1" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -61,17 +157,18 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
     <property name="project.structure.last.edited" value="Suggestions" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
       <recent name="$PROJECT_DIR$/app/src/main/res" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="com.example.projetremise01" />
