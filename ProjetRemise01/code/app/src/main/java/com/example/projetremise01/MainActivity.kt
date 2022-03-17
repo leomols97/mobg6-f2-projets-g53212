@@ -11,9 +11,7 @@ import com.example.projetremise01.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
-//    lateinit var navController: NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +19,6 @@ class MainActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
         val navController = this.findNavController(R.id.myNavHostFragment)
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        val navHostFragment =  supportFragmentManager.findFragmentById(R.id.navigation) as NavHostFragment
-//        this.navController = navHostFragment.navController
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
     }
