@@ -3,11 +3,12 @@ package com.example.projetremise01.Connect
 import android.app.Application
 import android.text.TextUtils
 import android.util.Patterns
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.projetremise01.database.MailDatabaseDao
+import com.example.projetremise01.database.MailInfos
+import java.time.LocalDateTime
 
 class ConnectViewModel(
     val database: MailDatabaseDao,
@@ -26,8 +27,8 @@ class ConnectViewModel(
         _mailAdress.value = ""
     }
 
-    private fun onConnectButton() {
-        if (!onCheck(mailAdress.toString())) {
+    fun onConnectButton() {
+        if (!onCheck(_mailAdress.toString())) {
             _statusMessage.value = Event("L'adresse mail n'est pas correctement entrée")
         }
         // Hides the keybooard
@@ -35,8 +36,14 @@ class ConnectViewModel(
 //        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun onCheck(mailAdress: String?): Boolean {
-        return !TextUtils.isEmpty(mailAdress) && Patterns.EMAIL_ADDRESS.matcher(mailAdress).matches()
+    private fun onCheck(mail: String?): Boolean {
+        if(!TextUtils.isEmpty(mail)
+            && database.get(mail.toString()) != null)
+            database.update(LocalDateTime.now())
+        if(!TextUtils.isEmpty(mail)
+            && database.get(mail.toString()) == null)
+            database.insert(MailInfos(LocalDateTime.now(), mail.toString()))
+        return !TextUtils.isEmpty(mail) && Patterns.EMAIL_ADDRESS.matcher(mail.toString()).matches()
     }
 }
 

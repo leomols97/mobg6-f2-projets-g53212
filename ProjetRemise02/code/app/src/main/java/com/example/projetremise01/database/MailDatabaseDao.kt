@@ -10,14 +10,14 @@ import java.time.LocalDateTime
 interface MailDatabaseDao {
 
     @Insert
-    fun insert(mail: Mail)
+    fun insert(mailInfos: MailInfos)
 
     @Update
     fun update(registrationTime: LocalDateTime)
 
-    @Query("SELECT * from daily_sleep_quality_table WHERE mail = :mailAdress")
-    fun get(mailAdress: CharSequence): Mail?
+    @Query("SELECT * from mail_infos WHERE mail = :mailAdress")
+    fun get(mailAdress: String): MailInfos
 
-    @Query("DELETE FROM daily_sleep_quality_table")
+    @Query("DELETE FROM mail_infos")
     fun clear()
 }

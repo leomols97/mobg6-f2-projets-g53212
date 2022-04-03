@@ -6,12 +6,13 @@ import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 import java.util.*
 
-@Entity(tableName = "daily_sleep_quality_table")
-data class Mail(
+@Entity(tableName = "mail_infos")
+data class MailInfos(
 
     @ColumnInfo(name= "registrationTime")
     var registrationTime: LocalDateTime = LocalDateTime.now(),
 
+    @PrimaryKey
     @ColumnInfo(name="mail")
     var mail: String = ""
 )
