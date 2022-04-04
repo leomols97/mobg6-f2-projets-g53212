@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.projetremise01.About.AboutFragment"
+        android:name="com.example.projetremise01.about.AboutFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_about"/>
     <fragment
         android:id="@+id/connectFragment"
-        android:name="com.example.projetremise01.Connect.ConnectFragment"
+        android:name="com.example.projetremise01.connect.ConnectFragment"
         android:label="@string/app_name"
         tools:layout="@layout/connect_fragment"/>
 </navigation>

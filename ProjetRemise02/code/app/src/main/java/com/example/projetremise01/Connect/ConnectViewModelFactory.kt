@@ -1,4 +1,4 @@
-package com.example.projetremise01.Connect
+package com.example.projetremise01.connect
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

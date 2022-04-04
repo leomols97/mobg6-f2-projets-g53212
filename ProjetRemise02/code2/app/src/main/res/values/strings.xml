@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">ProjetRemise02</string>
-    <string name="adresse_mail">Adresse mail</string>
-    <string name="mot_de_passe">Mot de passe</string>
-    <string name="se_connecter_button">Se connecter</string>
-    <string name="about_text">Hello ! Vous êtes sur l\'app de Léopold Mols !</string>
-    <string name="about">About</string>
-    <string name="se_connecter">Se connecter</string>
-</resources>

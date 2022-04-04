@@ -2,13 +2,13 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Connect.ConnectFragment" >
+    tools:context=".connect.ConnectFragment" >
 
     <data>
 
         <variable
             name="connectViewModel"
-            type="com.example.projetremise01.Connect.ConnectViewModel" />
+            type="com.example.projetremise01.connect.ConnectViewModel" />
 
     </data>
 

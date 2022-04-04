@@ -8,14 +8,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.projetremise01.Connect.ConnectViewModel
+import com.example.projetremise01.connect.ConnectViewModel
 import com.example.projetremise01.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var connectViewModel: ConnectViewModel
+//    private lateinit var connectViewModel: ConnectViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
 
-        connectViewModel.message.observe(this, Observer {
-            it.getContentIfNotHandled()?.let {
-                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-            }
-        })
+//        connectViewModel.message.observe(this, Observer {
+//            it.getContentIfNotHandled()?.let {
+//                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+//            }
+//        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

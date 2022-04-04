@@ -1,4 +1,4 @@
-package com.example.projetremise01.Connect
+package com.example.projetremise01.connect
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,33 +11,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.projetremise01.R
-import com.example.projetremise01.database.MailDatabaseDao
 import com.example.projetremise01.databinding.ConnectFragmentBinding
 
 
 class ConnectFragment : Fragment() {
 
-//    private lateinit var binding: ConnectFragmentBinding
-
-    private lateinit var viewModel: ConnectViewModel
+    private lateinit var binding: ConnectFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: ConnectFragmentBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.connect_fragment, container, false)
-        viewModel = ViewModelProvider(this).get(ConnectViewModel::class.java)
 
-        //binding.connectViewModel = viewModel
+        binding.connect.setOnClickListener {
+            connectButton()
+        }
 
-        binding.lifecycleOwner = viewLifecycleOwner
-
-        //binding = DataBindingUtil.inflate(inflater, R.layout.connect_fragment, container, false)
-
-//        binding.connect.setOnClickListener {
-//            connectButton()
-//        }
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -52,21 +43,21 @@ class ConnectFragment : Fragment() {
                 || super.onOptionsItemSelected(item)
     }
 
-//    private fun connectButton() {
-//        if (!isValidEmail(binding.mailAdress.text)) {
-//            val toast = Toast.makeText(
-//                context,
-//                "L'adresse mail n'est pas correctement entrée",
-//                Toast.LENGTH_SHORT
-//            )
-//            toast.show()
-//        }
-//        // Hides the keybooard
-////        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-////        imm.hideSoftInputFromWindow(view.windowToken, 0)
-//    }
-//
-//    private fun isValidEmail(mailAdress: CharSequence?): Boolean {
-//        return !TextUtils.isEmpty(mailAdress) && Patterns.EMAIL_ADDRESS.matcher(mailAdress).matches()
-//    }
+    private fun connectButton() {
+        if (!isValidEmail(binding.mailAdress.text)) {
+            val toast = Toast.makeText(
+                context,
+                "L'adresse mail n'est pas correctement entrée",
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+        }
+        // Hides the keybooard
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target.toString()).matches()
+    }
 }
