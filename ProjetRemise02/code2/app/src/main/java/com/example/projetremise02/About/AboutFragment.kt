@@ -1,11 +1,11 @@
-package com.example.projetremise01.About
+package com.example.projetremise02.About
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.projetremise01.R
+import com.example.projetremise02.R
 
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

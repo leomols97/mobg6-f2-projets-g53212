@@ -8,7 +8,7 @@
 
         <variable
             name="connectViewModel"
-            type="com.example.projetremise01.Connect.ConnectViewModel" />
+            type="com.example.projetremise02.Connect.ConnectViewModel" />
 
     </data>
 
