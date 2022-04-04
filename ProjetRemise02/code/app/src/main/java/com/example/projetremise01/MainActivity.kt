@@ -1,14 +1,11 @@
 package com.example.projetremise01
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.projetremise01.connect.ConnectViewModel
 import com.example.projetremise01.databinding.ActivityMainBinding
 
 

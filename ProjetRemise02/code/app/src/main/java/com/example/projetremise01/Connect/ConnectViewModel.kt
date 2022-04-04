@@ -11,7 +11,7 @@ import com.example.projetremise01.database.MailInfos
 import java.time.LocalDateTime
 
 class ConnectViewModel(
-    val database: MailDatabaseDao,
+    private val database: MailDatabaseDao,
     application: Application) : AndroidViewModel(application) {
 
     private val _mailAdress = MutableLiveData<String>()
@@ -49,7 +49,7 @@ class ConnectViewModel(
 
 open class Event<out T>(private val content: T) {
 
-    var hasBeenHandled = false
+    private var hasBeenHandled = false
         private set // Allow external read but not write
 
     /**
