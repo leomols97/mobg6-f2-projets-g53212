@@ -2,11 +2,14 @@ package com.example.projetremise01.connect
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.projetremise01.R
@@ -17,6 +20,8 @@ class ConnectFragment : Fragment() {
 
     private lateinit var binding: ConnectFragmentBinding
 
+    private lateinit var connectViewModel : ConnectViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,11 +29,24 @@ class ConnectFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.connect_fragment, container, false)
 
+        setHasOptionsMenu(true)
+
+        connectViewModel = ViewModelProvider(this).get(ConnectViewModel::class.java)
+
+        binding.connectViewModel = connectViewModel
+
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.connect.setOnClickListener {
             connectButton()
         }
 
-        setHasOptionsMenu(true)
+//        val application = requireNotNull(this.activity).application
+//
+//        if (viewModel.initializeDatabase(context).)
+//        viewModel.initializeDatabase(context)
+
+
         return binding.root
     }
 
@@ -51,12 +69,21 @@ class ConnectFragment : Fragment() {
             )
             toast.show()
         }
+        else {
+            val toast = Toast.makeText(
+                context,
+                "Adresse mail valide !",
+                Toast.LENGTH_SHORT
+            )
+            toast.show()
+            connectViewModel.insertEmail(binding.mailAdress.text.toString())
+        }
         // Hides the keybooard
 //        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun isValidEmail(target: CharSequence?): Boolean {
+    fun isValidEmail(target: CharSequence?): Boolean {
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target.toString()).matches()
     }
 }

@@ -7,12 +7,23 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.projetremise01.about.AboutFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_about"/>
+        android:name="com.example.projetremise02.about.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about">
+        <argument
+            android:name="AboutKey"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_aboutFragment_to_connectFragment"
+            app:destination="@id/connectFragment" />
+    </fragment>
     <fragment
         android:id="@+id/connectFragment"
-        android:name="com.example.projetremise01.connect.ConnectFragment"
+        android:name="com.example.projetremise02.connect.ConnectFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/connect_fragment"/>
+        tools:layout="@layout/connect_fragment">
+        <action
+            android:id="@+id/action_connectFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
 </navigation>
