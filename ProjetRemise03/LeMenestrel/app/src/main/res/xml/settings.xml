@@ -3,8 +3,9 @@
     <ListPreference
             app:key="@string/preference_fact_type_key"
             app:title="@string/settings_fact_type_title"
-            app:entries="@array/fact_type"
-            app:entryValues="@array/fact_type"
             app:defaultValue="@string/fact_type_android"
             app:useSimpleSummaryProvider="true"/>
+
+    <!--            app:entries="@array/fact_type"-->
+    <!--            app:entryValues="@array/fact_type"-->
 </PreferenceScreen>

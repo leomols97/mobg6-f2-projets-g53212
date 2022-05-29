@@ -1,24 +1,22 @@
-package com.example.android.firebaseui_login_sample
+package com.example.lemenestrel.FragmentAndVMs.Admin
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import com.example.android.firebaseui_login_sample.databinding.*
+import androidx.navigation.fragment.findNavController
+import com.example.lemenestrel.R
+import com.example.lemenestrel.databinding.FragmentLoginBinding
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.firebase.ui.auth.IdpResponse as IdpResponse1
 
 class LoginFragment : Fragment() {
 
@@ -36,12 +34,12 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        // Inflate the layout for this fragment.
+        // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
             inflater, R.layout.fragment_login, container, false
         )
 
-        binding.authButton.setOnClickListener { launchSignInFlow() }
+        //binding.authButton.setOnClickListener { launchSignInFlow() }
 
         return binding.root
     }
@@ -71,7 +69,7 @@ class LoginFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SIGN_IN_RESULT_CODE) {
-            val response = IdpResponse.fromResultIntent(data)
+            val response = IdpResponse1.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in user.
                 Log.i(

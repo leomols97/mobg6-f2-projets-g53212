@@ -1,4 +1,4 @@
-package com.example.android.firebaseui_login_sample
+package com.example.lemenestrel.FragmentAndVMs.Admin
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
+import com.example.lemenestrel.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
