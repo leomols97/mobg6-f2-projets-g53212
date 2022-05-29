@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Le Menestrel</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Le Ménestrel - Spread belgian culture</string>
+    <string name="nav_header_subtitle">leopold@menestrel.be</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_who">Qui sommes-nous ?</string>
+    <string name="menu_breweries">Les brasseries</string>
+    <string name="menu_events">Nos événements</string>
+    <string name="menu_admin">Administration</string>
+</resources>
