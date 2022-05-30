@@ -33,10 +33,6 @@ class MainFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-        // TODO Remove the two lines below once observeAuthenticationState is implemented.
-        binding.welcomeText.text = viewModel.getFactToDisplay(requireContext())
-        binding.authButton.text = getString(R.string.login_btn)
-
         return binding.root
     }
 
