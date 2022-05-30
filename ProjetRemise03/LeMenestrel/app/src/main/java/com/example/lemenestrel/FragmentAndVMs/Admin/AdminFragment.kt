@@ -30,7 +30,7 @@ class AdminFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin, container, false)
 
         return binding.root
@@ -119,7 +119,7 @@ class AdminFragment : Fragment() {
         startActivityForResult(
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
                 providers
-            ).build(), AdminFragment.SIGN_IN_RESULT_CODE
+            ).build(), SIGN_IN_RESULT_CODE
         )
     }
 }

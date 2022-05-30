@@ -23,7 +23,7 @@ class BreweriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this).get(BreweriesViewModel::class.java)
+            ViewModelProvider(this)[BreweriesViewModel::class.java]
 
         _binding = FragmentBreweriesBinding.inflate(inflater, container, false)
         val root: View = binding.root

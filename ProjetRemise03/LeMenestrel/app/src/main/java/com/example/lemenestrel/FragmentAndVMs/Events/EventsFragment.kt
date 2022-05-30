@@ -23,7 +23,7 @@ class EventsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val slideshowViewModel =
-            ViewModelProvider(this).get(EventsViewModel::class.java)
+            ViewModelProvider(this)[EventsViewModel::class.java]
 
         _binding = FragmentEventsBinding.inflate(inflater, container, false)
         val root: View = binding.root

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.preference.PreferenceManager
 import com.example.lemenestrel.R
-import kotlin.random.Random
 
 class AdminModel : ViewModel() {
 
