@@ -2,13 +2,13 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".connect.ConnectFragment" >
+    tools:context="com.example.projetremise02.connect.ConnectFragment" >
 
     <data>
 
         <variable
             name="connectViewModel"
-            type="com.example.projetremise01.connect.ConnectViewModel" />
+            type="com.example.projetremise02.connect.ConnectViewModel" />
 
     </data>
 
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/se_connecter_button"
-        android:onClick="@{() -> connectViewModel.onConnectButton()}"
+        android:onClick="@{() -> connectViewModel.onSetMailInfos()}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
