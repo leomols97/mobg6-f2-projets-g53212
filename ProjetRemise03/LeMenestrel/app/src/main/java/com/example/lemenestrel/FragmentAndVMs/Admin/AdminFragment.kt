@@ -1,6 +1,7 @@
 package com.example.lemenestrel.FragmentAndVMs.Admin
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,6 +18,8 @@ import com.example.lemenestrel.databinding.FragmentAdminBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class AdminFragment : Fragment() {
 
@@ -39,8 +43,20 @@ class AdminFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeAuthenticationState()
+        uploadPicture()
 
         binding.authButton.setOnClickListener { launchSignInFlow() }
+    }
+
+    val ImageBack = 1
+    lateinit var storage: StorageReference
+    private fun uploadPicture() {
+        storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
+        binding.uploadPicture.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.setType("pictures/*")
+            startActivityForResult(intent, ImageBack)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -58,6 +74,14 @@ class AdminFragment : Fragment() {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
+            }
+            // To make the picture upload possible
+            if (resultCode == RESULT_OK) {
+                val pictureData = data!!.getData()
+                val pictureName: StorageReference = storage.child("picture" + pictureData!!.lastPathSegment)
+                pictureName.putFile(pictureData).addOnSuccessListener { taskSnapShot ->
+                    Toast.makeText(requireActivity(), "Picture uploaded", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
