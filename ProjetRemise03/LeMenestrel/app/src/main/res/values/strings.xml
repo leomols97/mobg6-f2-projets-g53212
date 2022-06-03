@@ -27,4 +27,5 @@
 
     <!--Shared Preference Keys -->
     <string name="preference_fact_type_key">fact_type_pref</string>
+    <string name="beer_name">Nom de la bière</string>
 </resources>
