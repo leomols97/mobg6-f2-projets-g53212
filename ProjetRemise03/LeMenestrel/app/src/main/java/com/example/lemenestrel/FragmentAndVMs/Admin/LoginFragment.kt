@@ -1,6 +1,7 @@
 package com.example.lemenestrel.FragmentAndVMs.Admin
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentLoginBinding
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.firebase.ui.auth.IdpResponse as IdpResponse1
+
 
 class LoginFragment : Fragment() {
 
@@ -27,6 +33,8 @@ class LoginFragment : Fragment() {
 
     // Get a reference to the ViewModel scoped to this Fragment.
     private val viewModel by viewModels<LoginViewModel>()
+    private lateinit var binding: FragmentLoginBinding
+
 
     private lateinit var navController: NavController
 
@@ -35,11 +43,9 @@ class LoginFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
-            inflater, R.layout.fragment_login, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        //binding.authButton.setOnClickListener { launchSignInFlow() }
+        binding.authButton.setOnClickListener { launchSignInFlow() }
 
         return binding.root
     }
@@ -47,7 +53,57 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observeAuthenticationState()
+
+        binding.goToAdmin.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin);
+        }
+
         navController = findNavController()
+    }
+
+    /**
+     * Observes the authentication state and changes the UI accordingly.
+     * If there is a logged in user: (1) show a logout button and (2) display their name.
+     * If there is no logged in user: show a login button
+     */
+    private fun observeAuthenticationState() {
+        val factToDisplay = viewModel.getFactToDisplay(requireContext())
+
+        viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
+            when (authenticationState) {
+                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                    binding.welcomeText.text = getFactWithPersonalization(factToDisplay)
+
+                    // Logout don't need any internet connection
+                    binding.authButton.text = getString(R.string.logout_button_text)
+                    binding.authButton.setOnClickListener {
+                        AuthUI.getInstance().signOut(requireContext())
+                    }
+                    binding.goToAdmin.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.welcomeText.text = factToDisplay
+
+                    binding.authButton.text = getString(R.string.login_button_text)
+                    binding.authButton.setOnClickListener {
+                        launchSignInFlow()
+                    }
+                    binding.goToAdmin.visibility = View.GONE
+                }
+            }
+        })
+    }
+
+
+    private fun getFactWithPersonalization(fact: String): String {
+        return String.format(
+            resources.getString(
+                R.string.welcome_message_authed,
+                FirebaseAuth.getInstance().currentUser?.displayName,
+                Character.toLowerCase(fact[0]) + fact.substring(1)
+            )
+        )
     }
 
     private fun launchSignInFlow() {

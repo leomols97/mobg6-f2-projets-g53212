@@ -26,14 +26,14 @@
     <fragment
         android:id="@+id/nav_admin"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminFragment"
-        android:label="@string/menu_events"
-        tools:layout="@layout/fragment_events" />
+        android:label="@string/menu_admin"
+        tools:layout="@layout/fragment_admin" />
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminFragment"
-        android:label="@string/menu_events"
-        tools:layout="@layout/fragment_events" >
+        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.LoginFragment"
+        android:label="@string/menu_admin"
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_nav_login_to_nav_admin"
             app:destination="@id/nav_admin" />

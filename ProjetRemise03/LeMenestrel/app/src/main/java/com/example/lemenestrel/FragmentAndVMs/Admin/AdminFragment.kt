@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -31,7 +32,7 @@ class AdminFragment : Fragment() {
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
-    private val viewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<AdminViewModel>()
     private lateinit var binding: FragmentAdminBinding
 
     override fun onCreateView(
@@ -44,11 +45,11 @@ class AdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeAuthenticationState()
+//        observeAuthenticationState()
 
         uploadPicture()
 
-        binding.authButton.setOnClickListener { launchSignInFlow() }
+//        binding.authButton.setOnClickListener { launchSignInFlow() }
     }
 
     // Status for the picture upload success
@@ -71,30 +72,6 @@ class AdminFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SIGN_IN_RESULT_CODE) {
-            val response = IdpResponse.fromResultIntent(data)
-            if (resultCode == Activity.RESULT_OK) {
-                // User successfully signed in
-                Log.i(
-                    TAG,"Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
-                )
-                Toast.makeText(
-                    requireActivity(),
-                    "Connexion réussie",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
-                Toast.makeText(
-                    requireActivity(),
-                    "Connexion ratée",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
         // Upload the picture and toasting the success or failure
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
@@ -104,99 +81,45 @@ class AdminFragment : Fragment() {
                     storage.child("beer_$pictureNameInApp")
                 binding.imageView.setImageURI(pictureData)
                 binding.uploadPicture.setOnClickListener {
-                    if (
-                        binding.imageView.drawable != null
-//                        &&
-//                        !TextUtils.isEmpty(binding.pictureName.text)
-                        ) {
-                        pictureNameInFirebase.putFile(pictureData!!)
-                            .addOnSuccessListener { taskSnapShot ->
-                                Toast.makeText(
-                                    requireActivity(),
-                                    "Photo mise en ligne \uD83C\uDF7A",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }.addOnFailureListener {
-                                Toast.makeText(
-                                    requireActivity(),
-                                    "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                    } else {
-                        Log.i(TAG, "MLKJHGFDS ")
-                        Log.v(TAG, "Photo nulle ? " + (binding.imageView.drawable == null))
-                        Toast.makeText(
-                            context,
-                            "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +
-                                    "Peut-être as-tu oublié d'inscrire son nom ? \uD83D\uDE09",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    makeUpload(pictureNameInFirebase, pictureData)
                 }
             }
         }
     }
 
-    /**
-     * Observes the authentication state and changes the UI accordingly.
-     * If there is a logged in user: (1) show a logout button and (2) display their name.
-     * If there is no logged in user: show a login button
-     */
-    private fun observeAuthenticationState() {
-        val factToDisplay = viewModel.getFactToDisplay(requireContext())
-
-        viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
-            when (authenticationState) {
-                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
-                    binding.welcomeText.text = getFactWithPersonalization(factToDisplay)
-
-                    // Logout don't need any internet connection
-                    binding.authButton.text = getString(R.string.logout_button_text)
-                    binding.authButton.setOnClickListener {
-                        AuthUI.getInstance().signOut(requireContext())
-                    }
+    private fun makeUpload(
+        pictureNameInFirebase: StorageReference,
+        pictureData: Uri?
+    ) {
+        if (
+            binding.imageView.drawable != null
+    //                        &&
+    //                        !TextUtils.isEmpty(binding.pictureName.text)
+        ) {
+            pictureNameInFirebase.putFile(pictureData!!)
+                .addOnSuccessListener { taskSnapShot ->
+                    Toast.makeText(
+                        requireActivity(),
+                        "Photo mise en ligne \uD83C\uDF7A",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        requireActivity(),
+                        "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                else -> {
-                    binding.welcomeText.text = factToDisplay
-
-                    binding.authButton.text = getString(R.string.login_button_text)
-                    binding.authButton.setOnClickListener {
-                        launchSignInFlow()
-                    }
-                }
-            }
-        })
-    }
-
-
-    private fun getFactWithPersonalization(fact: String): String {
-        return String.format(
-            resources.getString(
-                R.string.welcome_message_authed,
-                FirebaseAuth.getInstance().currentUser?.displayName,
-                Character.toLowerCase(fact[0]) + fact.substring(1)
-            )
-        )
-    }
-
-    private fun launchSignInFlow() {
-        // Give users the option to sign in / register with their email
-        // If users choose to register with their email,
-        // they will need to create a password as well
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build()
-            //
-        )
-
-        // Create and launch sign-in intent.
-        // We listen to the response of this activity with the
-        // SIGN_IN_RESULT_CODE code
-        startActivityForResult(
-            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
-                providers
-            ).build(), SIGN_IN_RESULT_CODE
-        )
+        } else {
+            Log.i(TAG, "MLKJHGFDS ")
+            Log.v(TAG, "Photo nulle ? " + (binding.imageView.drawable == null))
+            Toast.makeText(
+                context,
+                "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +
+                        "Peut-être as-tu oublié d'inscrire son nom ? \uD83D\uDE09",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

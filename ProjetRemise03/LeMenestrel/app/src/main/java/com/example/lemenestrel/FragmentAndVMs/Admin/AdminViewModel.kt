@@ -6,17 +6,10 @@ import androidx.lifecycle.map
 import androidx.preference.PreferenceManager
 import com.example.lemenestrel.R
 
-class AdminModel : ViewModel() {
+class AdminViewModel : ViewModel() {
 
     companion object {
         val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
-
-        val californiaFacts = arrayOf(
-            "The most populated state in the United States is California",
-            "Three out of the ten largest U. S. cities are in California",
-            "The largest tree in the world can be found in California",
-            "California became a state in 1850"
-        )
     }
 
     enum class AuthenticationState {
