@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:uses-permissionandroid="http://schemas.android.com/apk/distribution"
     package="com.example.lemenestrel">
-    // Permissions to be able to read and write on Firebase on internet
+<!--    Permissions to be able to read and write on Firebase on internet-->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ EXTERNAL STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
