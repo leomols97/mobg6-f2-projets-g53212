@@ -1,44 +1,71 @@
 package com.example.lemenestrel.FragmentAndVMs.Admin
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
-import com.example.lemenestrel.databinding.FragmentAdminBinding
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
+import com.example.lemenestrel.databinding.FragmentAdminArtistBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class AdminFragment : Fragment() {
+class AdminArtistFragment : Fragment() {
 
     companion object {
-        const val TAG = "AdminFragment"
+        const val TAG = "AdminArtistFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
-    private val viewModel by viewModels<AdminViewModel>()
-    private lateinit var binding: FragmentAdminBinding
+    private val viewModel by viewModels<AdminArtistViewModel>()
+    private lateinit var binding: FragmentAdminArtistBinding
+
+    // Have the authenticated user
+    private lateinit var auth: FirebaseAuth
+
+    // To be able to work with the database
+    private lateinit var databaseReference: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_artist, container, false)
+
+
+//        // Have the current connected user tu Firebase
+//        auth = FirebaseAuth.getInstance()
+//        val uid = auth.currentUser?.uid
+//
+//        // Get the Firebase database for a specific table : Beers
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
+//
+//        binding.upload.setOnClickListener {
+//            val beerName = MutableLiveData<String>().apply {binding.pictureName.text.toString() }
+//            val beerType = MutableLiveData<String>().apply { binding.beerType.text.toString() }
+//            val beerBreweries = MutableLiveData<Array<String>>().apply { binding.beerBreweries.text.toString() }
+//            val beerAlcool = MutableLiveData<Int>().apply { binding.beerAlcool.text.toString().toInt() }
+//            val beerEbc = MutableLiveData<Int>().apply { binding.beerEbc.text.toString().toInt() }
+//            val beerIbu = MutableLiveData<Int>().apply { binding.beerIbu.text.toString().toInt() }
+//
+//            // Make an array out of the breweries received
+//            val beBreweries = beerBreweries.toString().split(",").toTypedArray()
+//            val breweries = MutableLiveData<Array<String>>()
+//            val test = StringTokenizer(beerBreweries.toString(), ",").toList()
+//
+//            //<val beer = Beers(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
+//        }
 
         return binding.root
     }

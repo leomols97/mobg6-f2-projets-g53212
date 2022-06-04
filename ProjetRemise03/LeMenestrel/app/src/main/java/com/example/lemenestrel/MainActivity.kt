@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.lemenestrel.databinding.ActivityMainBinding
-import com.example.lemenestrel.databinding.FragmentAdminBinding
+import com.example.lemenestrel.databinding.FragmentAdminBeerBinding
 import com.google.firebase.components.Dependency.setOf
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        // TODO
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()

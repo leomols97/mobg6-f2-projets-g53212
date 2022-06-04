@@ -28,5 +28,12 @@
     <!--Shared Preference Keys -->
     <string name="preference_fact_type_key">fact_type_pref</string>
     <string name="beer_name">Nom de la bière</string>
+    <string name="beer_alcool">Quantité d\'alcool</string>
+    <string name="beer_breweries">Nom de la (des) brasserie(s)</string>
+    <string name="beer_ebc">EBC</string>
+    <string name="beer_ibu">IBU</string>
+    <string name="beer_type">Type de bière</string>
+
     <string name="go_to_administration">Aller vers l\'administration de l\'app</string>
+    <string name="beer_breweries_hint">Séparez les brasseries par des virgules uniquement</string>
 </resources>

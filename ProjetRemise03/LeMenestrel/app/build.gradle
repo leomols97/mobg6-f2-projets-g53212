@@ -72,6 +72,8 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    // Have a circle pîcture into the administration layout
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
@@ -80,8 +82,13 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.3.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+    // Only for the progress dialog
+    implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
 }
+
 apply plugin: 'com.google.gms.google-services'
+
 repositories {
     mavenCentral()
 }

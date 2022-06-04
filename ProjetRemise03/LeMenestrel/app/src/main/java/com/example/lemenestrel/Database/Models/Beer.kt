@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 
 class Beer(val beName: MutableLiveData<String>,
            val ty: MutableLiveData<String>,
-           val breS: MutableLiveData<List<String>>,
+           val breS: MutableLiveData<Array<String>>,
            val alc: MutableLiveData<Int>,
            val eb: MutableLiveData<Int>,
            val ib: MutableLiveData<Int>)
@@ -18,8 +18,8 @@ class Beer(val beName: MutableLiveData<String>,
     val type: LiveData<String>
         get() = _type
 
-    val _breweries: MutableLiveData<List<String>> = breS
-    val breweries: LiveData<List<String>>
+    val _breweries: MutableLiveData<Array<String>> = breS
+    val breweries: LiveData<Array<String>>
         get() = _breweries
 
     val _alcool: MutableLiveData<Int> = alc

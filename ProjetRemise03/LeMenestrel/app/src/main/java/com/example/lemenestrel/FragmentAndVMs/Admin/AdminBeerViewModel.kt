@@ -6,7 +6,7 @@ import androidx.lifecycle.map
 import androidx.preference.PreferenceManager
 import com.example.lemenestrel.R
 
-class AdminViewModel : ViewModel() {
+class AdminBeerViewModel : ViewModel() {
 
     companion object {
         val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
