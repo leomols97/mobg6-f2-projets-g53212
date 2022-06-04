@@ -1,7 +1,6 @@
-package com.example.lemenestrel.FragmentAndVMs.Admin
+package com.example.lemenestrel.FragmentAndVMs.Login
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -55,11 +52,27 @@ class LoginFragment : Fragment() {
 
         observeAuthenticationState()
 
-        binding.goToAdmin.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin);
-        }
+        goToWhichAdminFragment(view)
 
         navController = findNavController()
+    }
+
+    private fun goToWhichAdminFragment(view: View) {
+        binding.goToAdminBeer.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_beer);
+        }
+        binding.goToAdminArtist.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_artist);
+        }
+        binding.goToAdminBrewery.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_brewery);
+        }
+        binding.goToAdminEvent.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_event);
+        }
+        binding.goToAdminPlace.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_place);
+        }
     }
 
     /**
@@ -80,7 +93,11 @@ class LoginFragment : Fragment() {
                     binding.authButton.setOnClickListener {
                         AuthUI.getInstance().signOut(requireContext())
                     }
-                    binding.goToAdmin.visibility = View.VISIBLE
+                    binding.goToAdminBeer.visibility = View.VISIBLE
+                    binding.goToAdminArtist.visibility = View.VISIBLE
+                    binding.goToAdminBrewery.visibility = View.VISIBLE
+                    binding.goToAdminEvent.visibility = View.VISIBLE
+                    binding.goToAdminPlace.visibility = View.VISIBLE
                 }
                 else -> {
                     binding.welcomeText.text = factToDisplay
@@ -89,7 +106,11 @@ class LoginFragment : Fragment() {
                     binding.authButton.setOnClickListener {
                         launchSignInFlow()
                     }
-                    binding.goToAdmin.visibility = View.GONE
+                    binding.goToAdminBeer.visibility = View.GONE
+                    binding.goToAdminArtist.visibility = View.GONE
+                    binding.goToAdminBrewery.visibility = View.GONE
+                    binding.goToAdminEvent.visibility = View.GONE
+                    binding.goToAdminPlace.visibility = View.GONE
                 }
             }
         })

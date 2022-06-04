@@ -15,5 +15,5 @@
                 android:height="1dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/events" />
+    <item android:drawable="@drawable/beertruck" />
 </layer-list>

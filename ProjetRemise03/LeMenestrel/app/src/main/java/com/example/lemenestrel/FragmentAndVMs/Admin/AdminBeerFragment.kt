@@ -49,72 +49,20 @@ class AdminBeerFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
 
-//        authenticateAndUploadBeerInfos()
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        uploadPicture()
-
-//        binding.authButton.setOnClickListener { launchSignInFlow() }
-    }
-
-    private fun authenticateAndUploadBeerInfos() {
-//        // Have the current connected user tu Firebase
-//        auth = FirebaseAuth.getInstance()
-//        val uid = auth.currentUser?.uid
-//
-//        // Get the Firebase database for a specific table : Beers
-//        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
-
-//        binding.upload.setOnClickListener {
-//            beerInfosUpload(uid)
-//        }
-    }
-
-    private fun beerInfosUpload(uid: String?) {
-        var beerName: String = binding.pictureName.text.toString()
-        var beerType: String = binding.beerType.text.toString()
-        var beerBreweries: String = binding.beerBreweries.text.toString()
-        var beerAlcool: Int = binding.beerAlcool.text.toString().toInt()
-        var beerEbc: Int = binding.beerEbc.text.toString().toInt()
-        var beerIbu: Int = binding.beerIbu.text.toString().toInt()
-        var beerPicture: String = binding.imageView.toString()
-
-        // Make an array out of the breweries received
-        val beBreweries = beerBreweries.split(",").toTypedArray()
-        val breweries: MutableList<String> = beBreweries.toMutableList()
-        val beer = Beers(beerName, beerType, breweries, beerAlcool, beerEbc, beerIbu, beerPicture)
-
-        if (uid != null) {
-            databaseReference.child(beer.BeerName).setValue(beer).addOnCompleteListener {
-                Log.i(TAG, it.toString())
-                if (it.isSuccessful) {
-                    uploadPicture()
-                    Toast.makeText(
-                        requireActivity(),
-                        "La bière a été ajoutée à la base de données \uD83D\uDE03",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        requireActivity(),
-                        "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
+        uploadBeer()
     }
 
     // Status for the picture upload success
     val IMAGE_BACK = 1
     lateinit var storage: StorageReference
     // To make the picture upload possible
-    private fun  uploadPicture() {
+    private fun  uploadBeer() {
         storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
         binding.selectPicture.setOnClickListener {
             selectPicture()
@@ -148,6 +96,41 @@ class AdminBeerFragment : Fragment() {
                 binding.uploadPicture.setOnClickListener {
                     makeUpload(pictureNameInFirebase, pictureData)
                     beerInfosUpload(uid)
+                }
+            }
+        }
+    }
+
+    private fun beerInfosUpload(uid: String?) {
+        var beerName: String = binding.pictureName.text.toString()
+        var beerType: String = binding.beerType.text.toString()
+        var beerBreweries: String = binding.beerBreweries.text.toString()
+        var beerAlcool: Int = binding.beerAlcool.text.toString().toInt()
+        var beerEbc: Int = binding.beerEbc.text.toString().toInt()
+        var beerIbu: Int = binding.beerIbu.text.toString().toInt()
+        var beerPicture: String = binding.imageView.toString()
+
+        // Make an array out of the breweries received
+        val beBreweries = beerBreweries.split(",").toTypedArray()
+        val breweries: MutableList<String> = beBreweries.toMutableList()
+        val beer = Beers(beerName, beerType, breweries, beerAlcool, beerEbc, beerIbu, beerPicture)
+
+        if (uid != null) {
+            databaseReference.child(beer.BeerName).setValue(beer).addOnCompleteListener {
+                Log.i(TAG, it.toString())
+                if (it.isSuccessful) {
+                    uploadBeer()
+                    Toast.makeText(
+                        requireActivity(),
+                        "La bière a été ajoutée à la base de données \uD83D\uDE03",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

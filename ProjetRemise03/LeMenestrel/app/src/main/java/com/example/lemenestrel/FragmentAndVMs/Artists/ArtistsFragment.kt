@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Breweries
+package com.example.lemenestrel.FragmentAndVMs.Artists
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.lemenestrel.databinding.FragmentBreweriesBinding
+import com.example.lemenestrel.databinding.FragmentArtistsBinding
 
-class BreweriesFragment : Fragment() {
+class ArtistsFragment : Fragment() {
 
-    private var _binding: FragmentBreweriesBinding? = null
+    private var _binding: FragmentArtistsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,12 +23,12 @@ class BreweriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this)[BreweriesViewModel::class.java]
+            ViewModelProvider(this)[ArtistsViewModel::class.java]
 
-        _binding = FragmentBreweriesBinding.inflate(inflater, container, false)
+        _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textBreweries
+        val textView: TextView = binding.textArtists
         galleryViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

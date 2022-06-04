@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.example.lemenestrel.R
-import com.example.lemenestrel.databinding.FragmentAdminEventBinding
+import com.example.lemenestrel.databinding.FragmentAdminPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -22,16 +22,16 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.*
 
-class AdminEventFragment : Fragment() {
+class AdminPlaceFragment : Fragment() {
 
     companion object {
-        const val TAG = "AdminEventFragment"
+        const val TAG = "AdminPlaceFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
-    private val viewModel by viewModels<AdminEventViewModel>()
-    private lateinit var binding: FragmentAdminEventBinding
+    private val viewModel by viewModels<AdminPlaceViewModel>()
+    private lateinit var binding: FragmentAdminPlaceBinding
 
     // Have the authenticated user
     private lateinit var auth: FirebaseAuth
@@ -42,7 +42,7 @@ class AdminEventFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_event, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_place, container, false)
 
 //        // Have the current connected user tu Firebase
 //        auth = FirebaseAuth.getInstance()

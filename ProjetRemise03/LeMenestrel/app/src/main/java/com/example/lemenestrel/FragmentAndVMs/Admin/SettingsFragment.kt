@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceFragmentCompat
+import com.example.lemenestrel.FragmentAndVMs.Login.LoginViewModel
 import com.example.lemenestrel.R
 
 class SettingsFragment : PreferenceFragmentCompat() {

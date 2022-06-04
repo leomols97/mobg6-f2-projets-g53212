@@ -41,7 +41,7 @@ class AdminBreweryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_artist, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_brewery, container, false)
 
 //        // Have the current connected user tu Firebase
 //        auth = FirebaseAuth.getInstance()
