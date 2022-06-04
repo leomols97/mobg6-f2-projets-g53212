@@ -74,79 +74,79 @@ class AdminEventFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        observeAuthenticationState()
 
-        uploadPicture()
+//        uploadPicture()
 
 //        binding.authButton.setOnClickListener { launchSignInFlow() }
     }
 
-    // Status for the picture upload success
-    val IMAGE_BACK = 1
-    lateinit var storage: StorageReference
-    // To make the picture upload possible
-    private fun uploadPicture() {
-        storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
-        binding.selectPicture.setOnClickListener {
-            selectPicture()
-        }
-    }
-
-    private fun selectPicture() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, IMAGE_BACK)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        // Upload the picture and toasting the success or failure
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                val pictureData = data!!.getData()
-                val pictureNameInApp = binding.pictureName.text
-                val pictureNameInFirebase: StorageReference =
-                    storage.child("beer_$pictureNameInApp")
-                binding.imageView.setImageURI(pictureData)
-                binding.uploadPicture.setOnClickListener {
-                    makeUpload(pictureNameInFirebase, pictureData)
-                }
-            }
-        }
-    }
-
-    private fun makeUpload(
-        pictureNameInFirebase: StorageReference,
-        pictureData: Uri?
-    ) {
-        if (
-            binding.imageView.drawable != null
-    //                        &&
-    //                        !TextUtils.isEmpty(binding.pictureName.text)
-        ) {
-            pictureNameInFirebase.putFile(pictureData!!)
-                .addOnSuccessListener { taskSnapShot ->
-                    Toast.makeText(
-                        requireActivity(),
-                        "Photo mise en ligne \uD83C\uDF7A",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        requireActivity(),
-                        "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-        } else {
-            Log.i(TAG, "MLKJHGFDS ")
-            Log.v(TAG, "Photo nulle ? " + (binding.imageView.drawable == null))
-            Toast.makeText(
-                context,
-                "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +
-                        "Peut-être as-tu oublié d'inscrire son nom ? \uD83D\uDE09",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
+//    // Status for the picture upload success
+//    val IMAGE_BACK = 1
+//    lateinit var storage: StorageReference
+//    // To make the picture upload possible
+//    private fun uploadPicture() {
+//        storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
+//        binding.selectPicture.setOnClickListener {
+//            selectPicture()
+//        }
+//    }
+//
+//    private fun selectPicture() {
+//        val intent = Intent(Intent.ACTION_PICK)
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(intent, IMAGE_BACK)
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        // Upload the picture and toasting the success or failure
+//        if (requestCode == 1) {
+//            if (resultCode == RESULT_OK) {
+//                val pictureData = data!!.getData()
+//                val pictureNameInApp = binding.pictureName.text
+//                val pictureNameInFirebase: StorageReference =
+//                    storage.child("beer_$pictureNameInApp")
+//                binding.imageView.setImageURI(pictureData)
+//                binding.uploadPicture.setOnClickListener {
+//                    makeUpload(pictureNameInFirebase, pictureData)
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun makeUpload(
+//        pictureNameInFirebase: StorageReference,
+//        pictureData: Uri?
+//    ) {
+//        if (
+//            binding.imageView.drawable != null
+//    //                        &&
+//    //                        !TextUtils.isEmpty(binding.pictureName.text)
+//        ) {
+//            pictureNameInFirebase.putFile(pictureData!!)
+//                .addOnSuccessListener { taskSnapShot ->
+//                    Toast.makeText(
+//                        requireActivity(),
+//                        "Photo mise en ligne \uD83C\uDF7A",
+//                        Toast.LENGTH_SHORT
+//                    )
+//                        .show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(
+//                        requireActivity(),
+//                        "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//        } else {
+//            Log.i(TAG, "MLKJHGFDS ")
+//            Log.v(TAG, "Photo nulle ? " + (binding.imageView.drawable == null))
+//            Toast.makeText(
+//                context,
+//                "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +
+//                        "Peut-être as-tu oublié d'inscrire son nom ? \uD83D\uDE09",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 }

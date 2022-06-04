@@ -48,20 +48,14 @@ class AdminBeerFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        uploadPicture()
-
         // Have the current connected user tu Firebase
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
         // Get the Firebase database for a specific table : Beers
-        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
+        databaseReference = FirebaseDatabase.getInstance().getReference("Beersss")
+
+        Log.i(TAG, uid.toString())
 
         binding.upload.setOnClickListener {
             var beerName: String = binding.pictureName.text.toString()
@@ -79,32 +73,42 @@ class AdminBeerFragment : Fragment() {
             Log.i(TAG, uid.toString())
 
             if (uid != null) {
-                databaseReference.child(uid).setValue(beer).addOnCompleteListener {
-                    //if (it.isSuccessful) {
-                        uploadBeer()
+                databaseReference.child(beer.beName.toString()).setValue(beer).addOnCompleteListener {
+                    Log.i(TAG, it.toString())
+                    if (it.isSuccessful) {
+                        uploadPicture()
+//                        storageReference = FirebaseStorage.getInstance().reference.child("UsersTEST" + auth.currentUser?.uid)
                         Toast.makeText(
                             requireActivity(),
                             "La bière a été ajoutée à la base de données \uD83D\uDE03",
                             Toast.LENGTH_SHORT
                         ).show()
-//                    } else {
-//                        Toast.makeText(
-//                            requireActivity(),
-//                            "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        uploadPicture()
 
 //        binding.authButton.setOnClickListener { launchSignInFlow() }
     }
 
 
     private fun uploadBeer() {
-        imageUri = Uri.parse("android.resource://BeerPictures/${R.id.select_picture}")
-        storageReference = FirebaseStorage.getInstance().reference.child("UsersTEST/" + auth.currentUser?.uid)
+        imageUri = Uri.parse("android.resource://BeerPictures/")
+        storageReference = FirebaseStorage.getInstance().reference.child("UsersTEST" + auth.currentUser?.uid)
         storageReference.putFile(imageUri).addOnSuccessListener {
             Toast.makeText(
                 requireActivity(),
@@ -161,8 +165,8 @@ class AdminBeerFragment : Fragment() {
     ) {
         if (
             binding.imageView.drawable != null
-    //                        &&
-    //                        !TextUtils.isEmpty(binding.pictureName.text)
+        //                        &&
+        //                        !TextUtils.isEmpty(binding.pictureName.text)
         ) {
             pictureNameInFirebase.putFile(pictureData!!)
                 .addOnSuccessListener { taskSnapShot ->
