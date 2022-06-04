@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,51 +49,7 @@ class AdminBeerFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
 
-        // Have the current connected user tu Firebase
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-
-        // Get the Firebase database for a specific table : Beers
-        databaseReference = FirebaseDatabase.getInstance().getReference("Beersss")
-
-        Log.i(TAG, uid.toString())
-
-        binding.upload.setOnClickListener {
-            var beerName: String = binding.pictureName.text.toString()
-            var beerType: String = binding.beerType.text.toString()
-            var beerBreweries: String = binding.beerBreweries.text.toString()
-            var beerAlcool: Int = binding.beerAlcool.text.toString().toInt()
-            var beerEbc: Int = binding.beerEbc.text.toString().toInt()
-            var beerIbu: Int = binding.beerIbu.text.toString().toInt()
-
-            // Make an array out of the breweries received
-            val beBreweries = beerBreweries.split(",").toTypedArray()
-            val breweries: MutableList<String> = beBreweries.toMutableList()
-            val beer = Beers(beerName, beerType, breweries, beerAlcool, beerEbc, beerIbu)
-
-            Log.i(TAG, uid.toString())
-
-            if (uid != null) {
-                databaseReference.child(beer.beName.toString()).setValue(beer).addOnCompleteListener {
-                    Log.i(TAG, it.toString())
-                    if (it.isSuccessful) {
-                        uploadPicture()
-//                        storageReference = FirebaseStorage.getInstance().reference.child("UsersTEST" + auth.currentUser?.uid)
-                        Toast.makeText(
-                            requireActivity(),
-                            "La bière a été ajoutée à la base de données \uD83D\uDE03",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(
-                            requireActivity(),
-                            "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-        }
+//        authenticateAndUploadBeerInfos()
 
         return binding.root
     }
@@ -105,22 +62,51 @@ class AdminBeerFragment : Fragment() {
 //        binding.authButton.setOnClickListener { launchSignInFlow() }
     }
 
+    private fun authenticateAndUploadBeerInfos() {
+//        // Have the current connected user tu Firebase
+//        auth = FirebaseAuth.getInstance()
+//        val uid = auth.currentUser?.uid
+//
+//        // Get the Firebase database for a specific table : Beers
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 
-    private fun uploadBeer() {
-        imageUri = Uri.parse("android.resource://BeerPictures/")
-        storageReference = FirebaseStorage.getInstance().reference.child("UsersTEST" + auth.currentUser?.uid)
-        storageReference.putFile(imageUri).addOnSuccessListener {
-            Toast.makeText(
-                requireActivity(),
-                "La photo de la bière a été ajoutée à la base de données \uD83D\uDE22",
-                Toast.LENGTH_SHORT
-            ).show()
-        }.addOnFailureListener {
-            Toast.makeText(
-                requireActivity(),
-                "La photo de la bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
-                Toast.LENGTH_SHORT
-            ).show()
+//        binding.upload.setOnClickListener {
+//            beerInfosUpload(uid)
+//        }
+    }
+
+    private fun beerInfosUpload(uid: String?) {
+        var beerName: String = binding.pictureName.text.toString()
+        var beerType: String = binding.beerType.text.toString()
+        var beerBreweries: String = binding.beerBreweries.text.toString()
+        var beerAlcool: Int = binding.beerAlcool.text.toString().toInt()
+        var beerEbc: Int = binding.beerEbc.text.toString().toInt()
+        var beerIbu: Int = binding.beerIbu.text.toString().toInt()
+        var beerPicture: String = binding.imageView.toString()
+
+        // Make an array out of the breweries received
+        val beBreweries = beerBreweries.split(",").toTypedArray()
+        val breweries: MutableList<String> = beBreweries.toMutableList()
+        val beer = Beers(beerName, beerType, breweries, beerAlcool, beerEbc, beerIbu, beerPicture)
+
+        if (uid != null) {
+            databaseReference.child(beer.BeerName).setValue(beer).addOnCompleteListener {
+                Log.i(TAG, it.toString())
+                if (it.isSuccessful) {
+                    uploadPicture()
+                    Toast.makeText(
+                        requireActivity(),
+                        "La bière a été ajoutée à la base de données \uD83D\uDE03",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "La bière n'a pas été ajoutée à la base de données \uD83D\uDE22",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -147,6 +133,13 @@ class AdminBeerFragment : Fragment() {
         // Upload the picture and toasting the success or failure
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                // Have the current connected user tu Firebase
+                auth = FirebaseAuth.getInstance()
+                val uid = auth.currentUser?.uid
+
+                // Get the Firebase database for a specific table : Beers
+                databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
+
                 val pictureData = data!!.getData()
                 val pictureNameInApp = binding.pictureName.text
                 val pictureNameInFirebase: StorageReference =
@@ -154,6 +147,7 @@ class AdminBeerFragment : Fragment() {
                 binding.imageView.setImageURI(pictureData)
                 binding.uploadPicture.setOnClickListener {
                     makeUpload(pictureNameInFirebase, pictureData)
+                    beerInfosUpload(uid)
                 }
             }
         }
@@ -163,11 +157,8 @@ class AdminBeerFragment : Fragment() {
         pictureNameInFirebase: StorageReference,
         pictureData: Uri?
     ) {
-        if (
-            binding.imageView.drawable != null
-        //                        &&
-        //                        !TextUtils.isEmpty(binding.pictureName.text)
-        ) {
+        if (binding.imageView.drawable != null
+                && !TextUtils.isEmpty(binding.pictureName.text)) {
             pictureNameInFirebase.putFile(pictureData!!)
                 .addOnSuccessListener { taskSnapShot ->
                     Toast.makeText(
