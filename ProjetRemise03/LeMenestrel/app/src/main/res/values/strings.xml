@@ -49,6 +49,6 @@
     <string name="title_fragment_beer">Voici les bières que nous avons déjà proposées au Ménestrel</string>
 
     <string name="title_fragment_brewery">Voici les brasseries que nous avons déjà promues au Ménestrel</string>
-    <string name="title_fragment_artists">Voici les artistes que nous avons déjà promus au Ménestrel</string>
-    <string name="title_fragment_events">Voici les événements que nous avons déjà faits au Ménestrel</string>
+    <string name="title_fragment_artist">Voici les artistes que nous avons déjà promus au Ménestrel</string>
+    <string name="title_fragment_event">Voici les événements que nous avons déjà organisés au Ménestrel</string>
 </resources>

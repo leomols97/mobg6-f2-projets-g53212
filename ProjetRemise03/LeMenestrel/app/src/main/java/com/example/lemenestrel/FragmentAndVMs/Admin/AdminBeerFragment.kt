@@ -31,6 +31,15 @@ class AdminBeerFragment : Fragment() {
 
     // Get a reference to the ViewModel scoped to this Fragment
     private val viewModel by viewModels<AdminBeerViewModel>()
+    // TODO
+    // initialiser binding à null et faire son destroyer
+    //     private var _binding: FragmentBeersBinding? = null
+    /*
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    */
     private lateinit var binding: FragmentAdminBeerBinding
 
     // Have the authenticated user

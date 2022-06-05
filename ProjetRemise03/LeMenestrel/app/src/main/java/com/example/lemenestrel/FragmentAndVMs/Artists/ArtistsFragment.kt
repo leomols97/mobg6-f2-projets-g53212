@@ -28,10 +28,10 @@ class ArtistsFragment : Fragment() {
         _binding = FragmentArtistsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textArtists
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textArtist
+//        galleryViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 

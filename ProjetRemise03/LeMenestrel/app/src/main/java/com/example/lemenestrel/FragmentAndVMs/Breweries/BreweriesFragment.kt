@@ -28,10 +28,10 @@ class BreweriesFragment : Fragment() {
         _binding = FragmentBreweriesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textBreweries
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+//        val textView: TextView = binding.textBrewery
+//        galleryViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 
