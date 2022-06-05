@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="beer_name">Nom de la bière</string>
     <string name="title_fragment_beer">Voici les bières que nous avons déjà proposées au Ménestrel</string>
 </resources>

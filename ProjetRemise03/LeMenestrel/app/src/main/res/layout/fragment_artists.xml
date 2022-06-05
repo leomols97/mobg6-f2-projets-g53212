@@ -8,16 +8,22 @@
     tools:context=".FragmentAndVMs.Artists.ArtistsFragment">
 
     <TextView
-        android:id="@+id/text_artists"
+        android:id="@+id/text_beers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/vast_shadow"
+        android:rotationX="0"
+        android:rotationY="0"
+        android:text="@string/title_fragment_beer"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.014" />
 </androidx.constraintlayout.widget.ConstraintLayout>
