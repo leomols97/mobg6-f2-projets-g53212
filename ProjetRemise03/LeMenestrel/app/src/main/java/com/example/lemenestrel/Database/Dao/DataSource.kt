@@ -42,44 +42,7 @@ class DataSource() {
         })
         return beers
     }
-//
-//    val ref = FirebaseDatabase.getInstance().getReference("Beers")
-//    ref.addListenerForSingleValueEvent(object: ValueEventListener {
-//        override fun onDataChange(dataSnapshot: DataSnapshot) {
-//            if (dataSnapshot.exists()) {
-//                for (dataSnapshotChildren in dataSnapshot.children) {
-//                    val beer = dataSnapshotChildren
-//                    Log.i(BeersFragment.TAG, beer.getValue().toString())
-//                }
-//            }
-//        }
-//        override fun onCancelled(error: DatabaseError) {
-//            throw error.toException()
-//        }
-//    })
-//
-//    /* Adds flower to liveData and posts value. */
-//    fun addFlower(flower: Flower) {
-//        val currentList = flowersLiveData.value
-//        if (currentList == null) {
-//            flowersLiveData.postValue(listOf(flower))
-//        } else {
-//            val updatedList = currentList.toMutableList()
-//            updatedList.add(0, flower)
-//            flowersLiveData.postValue(updatedList)
-//        }
-//    }
-//
-//    /* Removes flower from liveData and posts value. */
-//    fun removeFlower(flower: Flower) {
-//        val currentList = flowersLiveData.value
-//        if (currentList != null) {
-//            val updatedList = currentList.toMutableList()
-//            updatedList.remove(flower)
-//            flowersLiveData.postValue(updatedList)
-//        }
-//    }
-//
+
     // Returns beer thanks to his name
     fun getBeerWithName(name: String): Beers? {
         beersLiveData.value?.let { beers ->
@@ -91,13 +54,7 @@ class DataSource() {
     fun getBeersList(): LiveData<List<Beers>> {
         return beersLiveData
     }
-//
-//    /* Returns a random flower asset for flowers that are added. */
-//    fun getRandomFlowerImageAsset(): Int? {
-//        val randomNumber = (initialBeersList.indices).random()
-//        return initialBeersList[randomNumber].image
-//    }
-//
+
     companion object {
         private var INSTANCE: DataSource? = null
 

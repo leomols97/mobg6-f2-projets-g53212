@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.viewModels
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -13,7 +15,9 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.databinding.FragmentBeersBinding
+import com.example.lemenestrel.databinding.ItemBeerBinding
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 
 const val BEER_NAME = "beer name"
 
@@ -24,15 +28,28 @@ class BeersFragment : Fragment() {
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
+    // Create an instance of the ViewModel Factory.
+//    val application = requireNotNull(this.activity).application
+//    val databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
+//    val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
+//    val viewModelFactory = BeersViewModelFactory(databaseReference, application)
+
     private var _binding: FragmentBeersBinding? = null
     //    private lateinit var databaseReference: DatabaseReference
-    private val beersViewModel by viewModels<BeersViewModel> {
-        BeersViewModelFactory(this)
-    }
+//    private val beersViewModel by viewModels<BeersViewModel> {
+//        BeersViewModelFactory(application)
+//    }
+
+    // Get a reference to the ViewModel associated with this fragment.
+//    val sleepTrackerViewModel =
+//        ViewModelProvider(
+//            this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private lateinit var itemBeerBinding: ItemBeerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,21 +80,26 @@ class BeersFragment : Fragment() {
 //            }
         }
 
-        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
-        which displays the contents sequentially */
-        val headerAdapter = HeaderAdapter()
-        val beersAdapter = BeersAdapter { flower -> adapterOnClick(flower) }
-        val concatAdapter = ConcatAdapter(headerAdapter)
+        itemBeerBinding.buttonLoadBeer.setOnClickListener {
+            val beerPicture =  itemBeerBinding.beerPictureItem.toString()
+            val storageReference = FirebaseStorage.getInstance().reference.child("PictureFolder/beer_EFZGB")
+        }
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.adapter = concatAdapter
-
-        beersViewModel.beersLiveData.observe(this, {
-            it?.let {
-                beersAdapter.submitList(it as MutableList<Beers>)
-                headerAdapter.updateBeersCount(it.size)
-            }
-        })
+//        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
+//        which displays the contents sequentially */
+//        val headerAdapter = HeaderAdapter()
+//        val beersAdapter = BeersAdapter { flower -> adapterOnClick(flower) }
+//        val concatAdapter = ConcatAdapter(headerAdapter)
+//
+//        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
+//        recyclerView.adapter = concatAdapter
+//
+//        beersViewModel.beersLiveData.observe(this, {
+//            it?.let {
+//                beersAdapter.submitList(it as MutableList<Beers>)
+//                headerAdapter.updateBeersCount(it.size)
+//            }
+//        })
         return root
     }
 
@@ -120,16 +142,16 @@ class BeersFragment : Fragment() {
         })
     }
 
-    // Opens BeerDetailActivity when a RecyclerView item is clicked
-    private fun adapterOnClick(beer: Beers) {
-        val intent = Intent(this, BeerDetailActivity()::class.java)
-        intent.putExtra(BEER_NAME, beer.Name)
-        val intent = Intent(this, BicycleDetailed::class.java)
-        intent.putExtra(listBicycle)[position]
-        tv_item_name.setText(intent.getStringExtra(EXTRA_NAME))
-        tv_item_detail.setText(intent.getStringExtra(EXTRA_DETAILED))
-        startActivity(intent)
-    }
+//    // Opens BeerDetailActivity when a RecyclerView item is clicked
+//    private fun adapterOnClick(beer: Beers) {
+//        val intent = Intent(this, BeerDetailActivity()::class.java)
+//        intent.putExtra(BEER_NAME, beer.Name)
+//        val intent = Intent(this, BicycleDetailed::class.java)
+//        intent.putExtra(listBicycle)[position]
+//        tv_item_name.setText(intent.getStringExtra(EXTRA_NAME))
+//        tv_item_detail.setText(intent.getStringExtra(EXTRA_DETAILED))
+//        startActivity(intent)
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

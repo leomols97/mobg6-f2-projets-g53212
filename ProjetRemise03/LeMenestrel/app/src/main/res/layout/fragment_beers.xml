@@ -2,14 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- In the TextView, we can access the nightsString LiveData,
+             which keeps it displayed and updated in the TextView
+             whenever it changes. -->
+<!--    <data>-->
+
+<!--        <variable-->
+<!--            name="BeersViewModel"-->
+<!--            type="com.example.lemenestrel.FragmentAndVMs.Beers.BeersViewModel" />-->
+<!--    </data>-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".FragmentAndVMs.Beers.BeersFragment">
-
-        <!-- In the TextView, we can access the nightsString LiveData,
-             which keeps it displayed and updated in the TextView
-             whenever it changes. -->
 
         <TextView
             android:id="@+id/text_beers"
