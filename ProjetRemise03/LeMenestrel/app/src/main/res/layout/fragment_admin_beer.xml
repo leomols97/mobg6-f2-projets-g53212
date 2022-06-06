@@ -8,11 +8,12 @@
         android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_view"
+            android:id="@+id/beer_picture_admin"
             android:layout_width="355dp"
             android:layout_height="302dp"
             android:layout_marginVertical="30dp"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/beer_image_content_description"
             app:layout_constraintBottom_toTopOf="@+id/select_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
             app:layout_constraintVertical_bias="0.99" />
 
         <EditText
-            android:id="@+id/picture_name"
+            android:id="@+id/beer_name_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/beer_name"
@@ -62,7 +63,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.118"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
@@ -75,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.163"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.85" />
 
         <EditText
@@ -87,7 +88,7 @@
             app:layout_constraintBottom_toTopOf="@+id/select_picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.85" />
 
         <EditText
@@ -100,7 +101,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.874"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
@@ -114,7 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.326" />
 
         <EditText
@@ -127,7 +128,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.836"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view"
+            app:layout_constraintTop_toBottomOf="@+id/beer_picture_admin"
             app:layout_constraintVertical_bias="0.85" />
 
         <TextView

@@ -98,10 +98,10 @@ class AdminBeerFragment : Fragment() {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 
                 val pictureData = data!!.getData()
-                val pictureNameInApp = binding.pictureName.text
+                val pictureNameInApp = binding.beerNameAdmin.text.toString()
                 val pictureNameInFirebase: StorageReference =
                     storage.child("beer_$pictureNameInApp")
-                binding.imageView.setImageURI(pictureData)
+                binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadPicture.setOnClickListener {
                     makeUpload(pictureNameInFirebase, pictureData)
                     beerInfosUpload(uid)
@@ -111,21 +111,21 @@ class AdminBeerFragment : Fragment() {
     }
 
     private fun beerInfosUpload(uid: String?) {
-        var beerName: String = binding.pictureName.text.toString()
+        var beerName: String = binding.beerNameAdmin.text.toString()
         var beerType: String = binding.beerType.text.toString()
-        var beerBreweries: String = binding.beerBreweries.text.toString()
         var beerAlcool: Int = binding.beerAlcool.text.toString().toInt()
+        var beerBreweries: String = binding.beerBreweries.text.toString()
         var beerEbc: Int = binding.beerEbc.text.toString().toInt()
         var beerIbu: Int = binding.beerIbu.text.toString().toInt()
-        var beerPicture: String = binding.imageView.toString()
+        var beerPicture: String = binding.beerPictureAdmin.toString()
 
         // Make an array out of the breweries received
         val beBreweries = beerBreweries.split(",").toTypedArray()
         val breweries: MutableList<String> = beBreweries.toMutableList()
-        val beer = Beers(beerName, beerType, breweries, beerAlcool, beerEbc, beerIbu, beerPicture)
+        val beer = Beers(beerName, beerType, beerAlcool, breweries, beerEbc, beerIbu, beerPicture)
 
         if (uid != null) {
-            databaseReference.child(beer.BeerName).setValue(beer).addOnCompleteListener {
+            databaseReference.child(beer.Name).setValue(beer).addOnCompleteListener {
                 Log.i(TAG, it.toString())
                 if (it.isSuccessful) {
                     uploadBeer()
@@ -149,8 +149,8 @@ class AdminBeerFragment : Fragment() {
         pictureNameInFirebase: StorageReference,
         pictureData: Uri?
     ) {
-        if (binding.imageView.drawable != null
-                && !TextUtils.isEmpty(binding.pictureName.text)) {
+        if (binding.beerPictureAdmin.drawable != null
+                && !TextUtils.isEmpty(binding.beerNameAdmin.text)) {
             pictureNameInFirebase.putFile(pictureData!!)
                 .addOnSuccessListener { taskSnapShot ->
                     Toast.makeText(
@@ -167,7 +167,7 @@ class AdminBeerFragment : Fragment() {
                 }
         } else {
             Log.i(TAG, "MLKJHGFDS ")
-            Log.v(TAG, "Photo nulle ? " + (binding.imageView.drawable == null))
+            Log.v(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
             Toast.makeText(
                 context,
                 "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +

@@ -19,8 +19,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/vast_shadow"
-            android:rotationX="0"
-            android:rotationY="0"
             android:text="@string/title_fragment_beer"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -161,28 +159,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/beer_breweries" />
 
-        <EditText
-            android:id="@+id/beer_name_text_view"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_beers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_beers" />
+
+        <TextView
+            android:id="@+id/promoted_beer_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/beer_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_beers"
-            app:layout_constraintVertical_bias="0.52" />
-
-
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/recycler_view_beers"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="1.0"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/text_beers" />-->
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/vast_shadow"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_beers"
+            app:layout_constraintEnd_toEndOf="@+id/text_beers"
+            app:layout_constraintHorizontal_bias="0.786"
+            app:layout_constraintStart_toStartOf="@+id/text_beers"
+            app:layout_constraintTop_toTopOf="@+id/text_beers"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
