@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentAdminBeerBinding
+import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -32,16 +33,11 @@ class AdminBeerFragment : Fragment() {
 
     // Get a reference to the ViewModel scoped to this Fragment
     private val viewModel by viewModels<AdminBeerViewModel>()
-    // TODO
-    // initialiser binding à null et faire son destroyer
-    //     private var _binding: FragmentBeersBinding? = null
-    /*
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-    */
-    private lateinit var binding: FragmentAdminBeerBinding
+
+    // This is only valid between onCreateView and
+    // onDestroyView.
+    private var _binding: FragmentAdminBeerBinding? = null
+    private val binding get() = _binding!!
 
     // Have the authenticated user
     private lateinit var auth: FirebaseAuth
@@ -49,15 +45,10 @@ class AdminBeerFragment : Fragment() {
     // To be able to work with the database
     private lateinit var databaseReference: DatabaseReference
 
-    // To access to the Firebase storage
-    private lateinit var storageReference: StorageReference
-
-    private lateinit var imageUri: Uri
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
 
         return binding.root
     }
@@ -110,14 +101,14 @@ class AdminBeerFragment : Fragment() {
                     storage.child("beer_$pictureNameInApp")
                 binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadPicture.setOnClickListener {
-                    makeUpload(pictureNameInFirebase, pictureData)
-                    beerInfosUpload(uid)
+                    makePictureUpload(pictureNameInFirebase, pictureData)
+                    MakeBeerInfosUpload(uid)
                 }
             }
         }
     }
 
-    private fun beerInfosUpload(uid: String?) {
+    private fun MakeBeerInfosUpload(uid: String?) {
         try {
             var beerName: String = binding.beerNameAdmin.text.toString()
             var beerType: String = binding.beerType.text.toString()
@@ -139,7 +130,7 @@ class AdminBeerFragment : Fragment() {
                         uploadBeer()
                         Toast.makeText(
                             requireActivity(),
-                            "La bière a été ajoutée à la base de données \uD83D\uDE03",
+                            "La bière a été ajoutée à la base de données \uD83C\uDF7A",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
@@ -160,20 +151,14 @@ class AdminBeerFragment : Fragment() {
         }
     }
 
-    private fun makeUpload(
+    private fun makePictureUpload(
         pictureNameInFirebase: StorageReference,
         pictureData: Uri?
     ) {
         if (binding.beerPictureAdmin.drawable != null
                 && !TextUtils.isEmpty(binding.beerNameAdmin.text)) {
             pictureNameInFirebase.putFile(pictureData!!)
-                .addOnSuccessListener { taskSnapShot ->
-                    Toast.makeText(
-                        requireActivity(),
-                        "Photo mise en ligne \uD83C\uDF7A",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }.addOnFailureListener {
+                .addOnFailureListener {
                     Toast.makeText(
                         requireActivity(),
                         "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
@@ -190,5 +175,10 @@ class AdminBeerFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -35,12 +35,9 @@ class BeersFragment : Fragment() {
     }
 
     private var _binding: FragmentBeersBinding? = null
-    // Bind the beer item layout
-    private lateinit var itemBeerBinding: FragmentBreweriesBinding
 
     // References the Firebase folder with all the beer pictures
     val picturesReference = FirebaseStorage.getInstance().reference
-    val beersReference = FirebaseDatabase.getInstance()
 
     // List of beers
     private lateinit var beersArray: Array<Beers>
@@ -48,7 +45,7 @@ class BeersFragment : Fragment() {
     // For the widgets
     private lateinit var recyclerView: RecyclerView
 
-    // This property is only valid between onCreateView and
+    // This is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
