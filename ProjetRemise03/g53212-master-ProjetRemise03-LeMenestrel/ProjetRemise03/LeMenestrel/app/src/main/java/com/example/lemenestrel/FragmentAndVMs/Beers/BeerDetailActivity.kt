@@ -15,7 +15,7 @@ class BeerDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.beer_detail_activity)
+        setContentView(R.layout.activity_detail_beer)
 
         var currentBeerName: String? = null
 

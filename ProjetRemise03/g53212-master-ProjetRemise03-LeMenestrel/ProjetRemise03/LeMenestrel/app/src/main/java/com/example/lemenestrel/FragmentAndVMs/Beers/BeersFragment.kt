@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.lemenestrel.Database.Dao.DataSource
 import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.FragmentBreweriesBinding
 import com.google.firebase.database.DataSnapshot
@@ -37,13 +39,16 @@ class BeersFragment : Fragment() {
     private var _binding: FragmentBeersBinding? = null
     // Bind the beer item layout
     private lateinit var itemBeerBinding: FragmentBreweriesBinding
+
     // References the Firebase folder with all the beer pictures
     val picturesReference = FirebaseStorage.getInstance().reference
-    val beersReference = FirebaseDatabase.getInstance() //.reference.child("Beers")
-    //    private lateinit var databaseReference: DatabaseReference
-//    private val beersViewModel by viewModels<BeersViewModel> {
-//        BeersViewModelFactory(this)
-//    }
+    val beersReference = FirebaseDatabase.getInstance()
+
+    // List of beers
+    private lateinit var beersArray: Array<Beers>
+
+    // For the widgets
+    private lateinit var recyclerView: RecyclerView
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -70,6 +75,8 @@ class BeersFragment : Fragment() {
 //        }
         
         listPictures()
+
+//        recyclerView = requireView().findViewById(R.id.recycler_view_beers)
 
         return root
     }
