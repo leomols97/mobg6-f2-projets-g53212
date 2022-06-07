@@ -21,7 +21,13 @@
     <string name="menu_events">Nos événements</string>
     <string name="menu_artists">Les artistes</string>
     <string name="menu_beers">Les bières</string>
-    <string name="menu_admin">Administration</string>
+    <string name="menu_login">Administration bières</string>
+    <string name="menu_admin">Administration de l\'app</string>
+    <string name="menu_admin_beers">Administration bières</string>
+    <string name="menu_admin_breweries">Administration brasseries</string>
+    <string name="menu_admin_places">Administration lieux</string>
+    <string name="menu_admin_artists">Administration bières</string>
+    <string name="menu_admin_events">Administration événements</string>
 
     <string name="fact_type_android">Android</string>
     <string name="fact_type_california">California</string>
@@ -36,6 +42,8 @@
     <string name="beer_alcool">Quantité d\'alcool</string>
     <string name="beer_breweries">Nom de la (des) brasserie(s)</string>
     <string name="beer_breweries_hint">Séparez les brasseries par des virgules uniquement</string>
+    <string name="beer_alcool_hint">Séparez les dixièmes avec un point</string>
+    <string name="beer_picture_hint">N\'oubliez pas de sélectionner une photo</string>
     <string name="beer_ebc">EBC</string>
     <string name="beer_ibu">IBU</string>
     <string name="beer_type">Type de bière</string>

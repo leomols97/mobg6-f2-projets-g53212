@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_who">
+    app:startDestination="@+id/nav_beers">
 
     <fragment
         android:id="@+id/nav_who"
@@ -36,54 +36,54 @@
         tools:layout="@layout/fragment_beers" />
 
     <fragment
-        android:id="@+id/nav_admin_beer"
+        android:id="@+id/nav_admin_beers"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminBeerFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_admin_beers"
         tools:layout="@layout/fragment_admin_beer" />
 
     <fragment
-        android:id="@+id/nav_admin_artist"
+        android:id="@+id/nav_admin_artists"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminArtistFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_admin_artists"
         tools:layout="@layout/fragment_admin_artist" />
 
     <fragment
-        android:id="@+id/nav_admin_brewery"
+        android:id="@+id/nav_admin_breweries"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminBreweryFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_admin_breweries"
         tools:layout="@layout/fragment_admin_brewery" />
 
     <fragment
-        android:id="@+id/nav_admin_event"
+        android:id="@+id/nav_admin_events"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminEventFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_admin_events"
         tools:layout="@layout/fragment_admin_event" />
 
     <fragment
-        android:id="@+id/nav_admin_place"
+        android:id="@+id/nav_admin_places"
         android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminPlaceFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_admin_places"
         tools:layout="@layout/fragment_admin_place" />
 
     <fragment
         android:id="@+id/nav_login"
         android:name="com.example.lemenestrel.FragmentAndVMs.Login.LoginFragment"
-        android:label="@string/menu_admin"
+        android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_nav_login_to_nav_admin_beer"
-            app:destination="@id/nav_admin_beer" />
+            app:destination="@id/nav_admin_beers" />
         <action
             android:id="@+id/action_nav_login_to_nav_admin_event"
-            app:destination="@id/nav_admin_event" />
+            app:destination="@id/nav_admin_events" />
         <action
             android:id="@+id/action_nav_login_to_nav_admin_brewery"
-            app:destination="@id/nav_admin_brewery" />
+            app:destination="@id/nav_admin_breweries" />
         <action
             android:id="@+id/action_nav_login_to_nav_admin_artist"
-            app:destination="@id/nav_admin_artist" />
+            app:destination="@id/nav_admin_artists" />
         <action
             android:id="@+id/action_nav_login_to_nav_admin_place"
-            app:destination="@id/nav_admin_place" />
+            app:destination="@id/nav_admin_places" />
     </fragment>
 </navigation>

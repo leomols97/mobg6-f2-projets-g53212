@@ -8,9 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lemenestrel.Database.Dao.DataSource
 import com.example.lemenestrel.Database.Models.Beers
-import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.FragmentBreweriesBinding
 import com.google.firebase.database.DataSnapshot
@@ -74,17 +72,17 @@ class BeersFragment : Fragment() {
 //            }
 //        }
         
-        listPictures()
+        listBeers()
 
 //        recyclerView = requireView().findViewById(R.id.recycler_view_beers)
 
         return root
     }
 
-    private fun listPictures() = CoroutineScope(Dispatchers.IO).launch {
+    private fun listBeers() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val pictures = picturesReference.child("PictureFolder/").listAll().await()
-            beersReference.reference.orderByKey()
+//            beersReference.reference.orderByKey()
             //val beers = beersReference.reference.child("Beers").get().await()
             val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
@@ -110,7 +108,7 @@ class BeersFragment : Fragment() {
         }
     }
 
-    fun getBeers(): List<Beers> {
+    private fun getBeers(): List<Beers> {
         val beers: MutableList<Beers> = mutableListOf()
         val ref = FirebaseDatabase.getInstance().getReference("Beers")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
