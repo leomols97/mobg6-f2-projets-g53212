@@ -13,7 +13,7 @@ class DataSource() {
     private val beersList = getBeers()
     private val beersLiveData = MutableLiveData(beersList)
 
-    private fun getBeers(): List<Beers> {
+    fun getBeers(): List<Beers> {
         val beers: MutableList<Beers> = mutableListOf()
         val ref = FirebaseDatabase.getInstance().getReference("Beers")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {

@@ -1,18 +1,14 @@
 package com.example.lemenestrel.FragmentAndVMs.Beers
 
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lemenestrel.Database.Dao.DataSource
 import com.example.lemenestrel.Database.Models.Beers
-import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.FragmentBreweriesBinding
 import com.google.firebase.database.DataSnapshot
@@ -26,7 +22,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.tasks.await
-import java.io.File
 import java.lang.Exception
 
 
@@ -42,8 +37,9 @@ class BeersFragment : Fragment() {
     private var _binding: FragmentBeersBinding? = null
     // Bind the beer item layout
     private lateinit var itemBeerBinding: FragmentBreweriesBinding
-    var curFile: Uri? = null
-    val pictureReference = FirebaseStorage.getInstance().reference
+    // References the Firebase folder with all the beer pictures
+    val picturesReference = FirebaseStorage.getInstance().reference
+    val beersReference = FirebaseDatabase.getInstance() //.reference.child("Beers")
     //    private lateinit var databaseReference: DatabaseReference
 //    private val beersViewModel by viewModels<BeersViewModel> {
 //        BeersViewModelFactory(this)
@@ -75,75 +71,28 @@ class BeersFragment : Fragment() {
         
         listPictures()
 
-
-        itemBeerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_breweries, container, false)
-        itemBeerBinding.buttooooooon.setOnClickListener {
-            val pictureName = itemBeerBinding.beeeeeer.text.toString()
-            val storageReference = FirebaseStorage.getInstance().reference.child("PictureFolder/$pictureName")
-
-            val localFile = File.createTempFile("tempImage", "jpg")
-            storageReference.getFile(localFile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
-                itemBeerBinding.pictuuuuuuure.setImageBitmap(bitmap)
-            }.addOnFailureListener {
-                Toast.makeText(
-                    requireActivity(),
-                    "Pas réussi à aller chercher l'image de ce nom  \uD83D\uDE03",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-
-
-//        val textView: TextView = binding.textBeers
-//        galleryViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
-        binding.buttonLoadBeer.setOnClickListener {
-//            val beerName: String = binding.beerNameTextView.text.toString()
-//            if (beerName.isNotEmpty()) {
-            readData(/*beerName*/)
-//            } else {
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "Entre un nom de bière  \uD83D\uDE03",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-        }
-
-//        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
-//        which displays the contents sequentially */
-//        val headerAdapter = HeaderAdapter()
-//        val beersAdapter = BeersAdapter { flower -> adapterOnClick(flower) }
-//        val concatAdapter = ConcatAdapter(headerAdapter)
-//
-//        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-//        recyclerView.adapter = concatAdapter
-//
-//        beersViewModel.beersLiveData.observe(this, {
-//            it?.let {
-//                beersAdapter.submitList(it as MutableList<Beers>)
-//                headerAdapter.updateBeersCount(it.size)
-//            }
-//        })
         return root
     }
 
     private fun listPictures() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val pictures = pictureReference.child("PictureFolder/").listAll().await()
+            val pictures = picturesReference.child("PictureFolder/").listAll().await()
+            beersReference.reference.orderByKey()
+            //val beers = beersReference.reference.child("Beers").get().await()
+            val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
+            val beersData = mutableListOf<Beers>()
             for(picture in pictures.items) {
                 val url = picture.downloadUrl.await()
                 picturesUrls.add(url.toString())
             }
+            for (beer in beers) {
+                beersData.add(beer)
+            }
             withContext(Dispatchers.Main) {
-                val imageAdapter = BeersAdapter(picturesUrls)
+                val beerAdapter = BeersAdapter(picturesUrls, beersData)
                 recycler_view_beers.apply {
-                    adapter = imageAdapter
-//                    layoutManager = LinearLayoutManager(this@MainActivity)
+                    adapter = beerAdapter
                     layoutManager = LinearLayoutManager(requireActivity())
                 }
             }
@@ -154,12 +103,12 @@ class BeersFragment : Fragment() {
         }
     }
 
-    private fun readData(/*beerName: String*/) {
-        val databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
-        databaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
+    fun getBeers(): List<Beers> {
+        val beers: MutableList<Beers> = mutableListOf()
+        val ref = FirebaseDatabase.getInstance().getReference("Beers")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val beers: MutableList<Beers> = mutableListOf()
                     val children = dataSnapshot!!.children
                     children.forEach {
                         // This returns every brewery in a single String
@@ -172,18 +121,8 @@ class BeersFragment : Fragment() {
                         val beerPicture = it.child("picture").value.toString()
 
                         val beer = Beers(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
-                        beers.add(beer)
 
-                        binding.beerName.text = beer.Name
-                        binding.beerAlcool.text = beer.Alcool.toString()
-                        binding.beerEbc.text = beer.EBC.toString()
-                        binding.beerIbu.text = beer.IBU.toString()
-                        binding.beerType.text = beer.Type
-                        // Simply to delete '[' and ']' that starts and end the string that should be an array
-                        var breweries1 = beer.Breweries.toString()
-                        breweries1 = breweries1.filterNot { it == '[' }
-                        breweries1 = breweries1.filterNot { it == ']' }
-                        binding.beerBreweries.text = breweries1
+                        beers.add(beer)
                     }
                 }
             }
@@ -191,18 +130,8 @@ class BeersFragment : Fragment() {
                 throw error.toException()
             }
         })
+        return beers
     }
-
-//    // Opens BeerDetailActivity when a RecyclerView item is clicked
-//    private fun adapterOnClick(beer: Beers) {
-//        val intent = Intent(this, BeerDetailActivity()::class.java)
-//        intent.putExtra(BEER_NAME, beer.Name)
-//        val intent = Intent(this, BicycleDetailed::class.java)
-//        intent.putExtra(listBicycle)[position]
-//        tv_item_name.setText(intent.getStringExtra(EXTRA_NAME))
-//        tv_item_detail.setText(intent.getStringExtra(EXTRA_DETAILED))
-//        startActivity(intent)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

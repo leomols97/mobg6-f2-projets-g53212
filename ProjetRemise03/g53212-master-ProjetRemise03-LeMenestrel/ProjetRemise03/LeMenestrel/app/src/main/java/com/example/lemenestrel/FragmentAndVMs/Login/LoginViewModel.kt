@@ -9,6 +9,7 @@ import com.example.lemenestrel.R
 
 class LoginViewModel : ViewModel() {
 
+    // Only for the organisation of the code. Companion a bit like private
     companion object {
         val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
     }
@@ -31,10 +32,10 @@ class LoginViewModel : ViewModel() {
      * not set a preference, defaults to showing Android facts.
      */
     fun getFactToDisplay(context: Context): String {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val factTypePreferenceKey = context.getString(R.string.preference_fact_type_key)
-        //val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
-        //val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+//        val factTypePreferenceKey = context.getString(R.string.preference_fact_type_key)
+//        //val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
+//        //val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
 
         return androidFacts
     }

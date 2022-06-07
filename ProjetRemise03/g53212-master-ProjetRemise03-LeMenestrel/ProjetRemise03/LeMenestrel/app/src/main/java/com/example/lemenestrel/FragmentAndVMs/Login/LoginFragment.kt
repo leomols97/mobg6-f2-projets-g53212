@@ -86,38 +86,45 @@ class LoginFragment : Fragment() {
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
-                    binding.welcomeText.text = getFactWithPersonalization(factToDisplay)
-
-                    // Logout don't need any internet connection
-                    binding.authButton.text = getString(R.string.logout_button_text)
-                    binding.authButton.setOnClickListener {
-                        AuthUI.getInstance().signOut(requireContext())
-                    }
-                    binding.goToAdminBeer.visibility = View.VISIBLE
-                    binding.goToAdminArtist.visibility = View.VISIBLE
-                    binding.goToAdminBrewery.visibility = View.VISIBLE
-                    binding.goToAdminEvent.visibility = View.VISIBLE
-                    binding.goToAdminPlace.visibility = View.VISIBLE
-                }
-                else -> {
-                    binding.welcomeText.text = factToDisplay
-
-                    binding.authButton.text = getString(R.string.login_button_text)
-                    binding.authButton.setOnClickListener {
-                        launchSignInFlow()
-                    }
-                    binding.goToAdminBeer.visibility = View.GONE
-                    binding.goToAdminArtist.visibility = View.GONE
-                    binding.goToAdminBrewery.visibility = View.GONE
-                    binding.goToAdminEvent.visibility = View.GONE
-                    binding.goToAdminPlace.visibility = View.GONE
+                    logoutLayoutTexts(factToDisplay)
+                } else -> {
+                    loginLayoutTexts(factToDisplay)
                 }
             }
         })
     }
 
+    private fun loginLayoutTexts(factToDisplay: String) {
+        binding.welcomeText.text = factToDisplay
 
-    private fun getFactWithPersonalization(fact: String): String {
+        binding.authButton.text = getString(R.string.login_button_text)
+        binding.authButton.setOnClickListener {
+            launchSignInFlow()
+        }
+        binding.goToAdminBeer.visibility = View.GONE
+        binding.goToAdminArtist.visibility = View.GONE
+        binding.goToAdminBrewery.visibility = View.GONE
+        binding.goToAdminEvent.visibility = View.GONE
+        binding.goToAdminPlace.visibility = View.GONE
+    }
+
+    private fun logoutLayoutTexts(factToDisplay: String) {
+        binding.welcomeText.text = loggedInWelcomeText(factToDisplay)
+
+        // Logout don't need any internet connection
+        binding.authButton.text = getString(R.string.logout_button_text)
+        binding.authButton.setOnClickListener {
+            AuthUI.getInstance().signOut(requireContext())
+        }
+        binding.goToAdminBeer.visibility = View.VISIBLE
+        binding.goToAdminArtist.visibility = View.VISIBLE
+        binding.goToAdminBrewery.visibility = View.VISIBLE
+        binding.goToAdminEvent.visibility = View.VISIBLE
+        binding.goToAdminPlace.visibility = View.VISIBLE
+    }
+
+
+    private fun loggedInWelcomeText(fact: String): String {
         return String.format(
             resources.getString(
                 R.string.welcome_message_authed,

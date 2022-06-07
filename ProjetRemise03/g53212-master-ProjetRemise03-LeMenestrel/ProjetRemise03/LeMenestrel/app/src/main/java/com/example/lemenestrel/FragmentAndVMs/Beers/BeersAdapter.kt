@@ -1,120 +1,84 @@
 package com.example.lemenestrel.FragmentAndVMs.Beers
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.compose.ui.res.painterResource
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.ItemBeerBinding
 import kotlinx.android.synthetic.main.item_beer.view.*
+import kotlinx.android.synthetic.main.item_beer.*;
 
+class BeersAdapter(val urls: List<String>, val beers: List<Beers>): RecyclerView.Adapter<BeersAdapter.BeersViewHolder>() {
 
-private const val PICK_IMAGE_REQUEST_CODE = 0
-class BeersAdapter (val urls: List<String>): RecyclerView.Adapter<BeersAdapter.BeersViewHolder>()
-//    (val clickListener: BeersListener/*private val onClick: (Beers) -> Unit*/) :
-//    ListAdapter<Beers, BeersAdapter.ViewHolder>(BeerDiffCallback)
-{
+//    inner class BeersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    inner class BeersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
+//         return BeersViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_beer, parent, false) )
+//    }
+
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
+//        val inflater = LayoutInflater.from(parent.context)
+//        val view = inflater.inflate(R.layout.item_beer, parent, false)
+//        return BeersViewHolder(view)
+//    }
+
+//    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) = holder.bind(items[position])
+
+//    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) { // = holder.bind(urls[position]) {
+////        val itemBeerBinding: RecyclerView.ViewHolder = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.fragment_admin_beer, container, false)
+//        val url = urls[position]
+//        val beerName = beers[position].Name
+//        val beerAlcool = beers[position].Alcool
+//        val beerEbc = beers[position].EBC
+//        val beerIbu = beers[position].IBU
+//        val beerBreweries = beers[position].Breweries
+//        val beerType = beers[position].Type
+//        Glide.with(holder.itemView.context).load(url).error(R.drawable.missing).into(holder.itemView.beer_picture_item)
+
+//        val textView: TextView = R.id.beer_name_item as TextView
+//        textView.setOnClickListener {
+//            textView.text = beerName
+//        }
+//        Glide.with(holder.itemView.context).load(beerName).into(R.layout.item_beer)
+//      }
+
+//    override fun getItemCount(): Int {
+//        return urls.size
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
-         return BeersViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_beer, parent, false) )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemBeerBinding.inflate(inflater)
+        return BeersViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) {
-        val url = urls[position]
-        Glide.with(holder.itemView.context).load(url).into(holder.itemView.beer_picture_item)
+    override fun getItemCount(): Int = beers.size
+
+    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) = holder.bind(beers[position]) // {
+//        val url = urls[position]
+//        Glide.with(holder.itemView.context).load(url).error(R.drawable.missing).into(holder.itemView.beer_picture_item)
+//    }
+
+    inner class BeersViewHolder(val binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root) {
+//        val url = urls[position]
+        fun bind(item: Beers) {
+            with(binding) {
+                beerNameItem.text = item.Name
+                beerAlcoolItem.text = item.Alcool.toString()
+                beerBreweriesItem.text = item.Breweries.toString()
+                beerEbcItem.text = item.EBC.toString()
+                beerIbuItem.text = item.IBU.toString()
+                beerTypeItem.text = item.Type
+            }
+        }
+//        Glide.with(holder.itemView.context).load(beerName).into(R.layout.item_beer)
     }
-
-    override fun getItemCount(): Int {
-        return urls.size
-    }
-
-//    /* ViewHolder for Beer, takes in the inflated view and the onClick behavior. */
-//    class BeersViewHolder(itemView: View, val onClick: (Beers) -> Unit) :
-//        RecyclerView.ViewHolder(itemView) {
-//        private val beerTextView: TextView = itemView.findViewById(R.id.beer_name)
-//        //        private val flowerImageView: ImageView = itemView.findViewById(R.id.flower_image)
-//        private var currentBeer: Beers? = null
-//
-//        init {
-//            itemView.setOnClickListener {
-//                currentBeer?.let {
-//                    onClick(it)
-//                }
-//            }
-//        }
-//
-//        /* Bind flower name and image. */
-//        fun bind(beer: Beers) {
-//            currentBeer = beer
-//
-//            beerTextView.text = beer.Name
-////            if (beer.image != null) {
-////                flowerImageView.setImageResource(beer.image)
-////            } else {
-////                flowerImageView.setImageResource(R.drawable.rose)
-////            }
-//        }
-//    }
-//
-//    /* Creates and inflates view and return BeersViewHolder. */
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
-//        val view = LayoutInflater.from(parent.context)
-//            .inflate(R.layout.item_beer, parent, false)
-//        return BeersViewHolder(view, onClick)
-//    }
-//
-//    /* Gets current flower and uses it to bind view. */
-//    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) {
-//        val flower = getItem(position)
-//        holder.bind(flower)
-//
-//    }
-
-    //    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(getItem(position)!!, clickListener)
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        return ViewHolder.from(parent)
-//    }
-//
-//    class ViewHolder private constructor(val binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root){
-//
-//        fun bind(item: Beers, clickListener: BeersListener) {
-////            binding.beerNameItem = item.Name
-//            binding.clickListener = clickListener
-//            binding.executePendingBindings()
-//        }
-//
-//        companion object {
-//            fun from(parent: ViewGroup): ViewHolder {
-//                val layoutInflater = LayoutInflater.from(parent.context)
-//                val binding = ListItemSleepNightBinding.inflate(layoutInflater, parent, false)
-//                return ViewHolder(binding)
-//            }
-//        }
-//    }
-//}
-
-//object BeerDiffCallback : DiffUtil.ItemCallback<Beers>() {
-//    override fun areItemsTheSame(oldItem: Beers, newItem: Beers): Boolean {
-//        return oldItem == newItem
-//    }
-//
-//    override fun areContentsTheSame(oldItem: Beers, newItem: Beers): Boolean {
-//        return oldItem.Name == newItem.Name
-//    }
-//}
-//
-//class BeersListener(val clickListener: (beerName: String) -> Unit) {
-//    fun onClick(beer: Beers) = clickListener(beer.Name)
-//}
 }
