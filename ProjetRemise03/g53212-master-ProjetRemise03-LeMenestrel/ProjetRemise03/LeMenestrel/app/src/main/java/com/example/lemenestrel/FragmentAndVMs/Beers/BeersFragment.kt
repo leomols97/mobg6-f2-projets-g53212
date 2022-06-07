@@ -1,19 +1,34 @@
 package com.example.lemenestrel.FragmentAndVMs.Beers
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentBeersBinding
-import com.google.firebase.database.*
+import com.example.lemenestrel.databinding.FragmentBreweriesBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_beers.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.tasks.await
+import java.io.File
+import java.lang.Exception
+
 
 const val BEER_NAME = "beer name"
 
@@ -25,6 +40,10 @@ class BeersFragment : Fragment() {
     }
 
     private var _binding: FragmentBeersBinding? = null
+    // Bind the beer item layout
+    private lateinit var itemBeerBinding: FragmentBreweriesBinding
+    var curFile: Uri? = null
+    val pictureReference = FirebaseStorage.getInstance().reference
     //    private lateinit var databaseReference: DatabaseReference
 //    private val beersViewModel by viewModels<BeersViewModel> {
 //        BeersViewModelFactory(this)
@@ -44,6 +63,37 @@ class BeersFragment : Fragment() {
 
         _binding = FragmentBeersBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        // Status for the picture upload success
+        val IMAGE_BACK = 1
+//        imageView2.setOnClickListener {
+//            Intent(Intent.ACTION_GET_CONTENT).also {
+//                it.type = "image/*"
+//                startActivityForResult(it, IMAGE_BACK)
+//            }
+//        }
+        
+        listPictures()
+
+
+        itemBeerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_breweries, container, false)
+        itemBeerBinding.buttooooooon.setOnClickListener {
+            val pictureName = itemBeerBinding.beeeeeer.text.toString()
+            val storageReference = FirebaseStorage.getInstance().reference.child("PictureFolder/$pictureName")
+
+            val localFile = File.createTempFile("tempImage", "jpg")
+            storageReference.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                itemBeerBinding.pictuuuuuuure.setImageBitmap(bitmap)
+            }.addOnFailureListener {
+                Toast.makeText(
+                    requireActivity(),
+                    "Pas réussi à aller chercher l'image de ce nom  \uD83D\uDE03",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
 
 //        val textView: TextView = binding.textBeers
 //        galleryViewModel.text.observe(viewLifecycleOwner) {
@@ -79,6 +129,29 @@ class BeersFragment : Fragment() {
 //            }
 //        })
         return root
+    }
+
+    private fun listPictures() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val pictures = pictureReference.child("PictureFolder/").listAll().await()
+            val picturesUrls = mutableListOf<String>()
+            for(picture in pictures.items) {
+                val url = picture.downloadUrl.await()
+                picturesUrls.add(url.toString())
+            }
+            withContext(Dispatchers.Main) {
+                val imageAdapter = BeersAdapter(picturesUrls)
+                recycler_view_beers.apply {
+                    adapter = imageAdapter
+//                    layoutManager = LinearLayoutManager(this@MainActivity)
+                    layoutManager = LinearLayoutManager(requireActivity())
+                }
+            }
+        } catch (e :Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun readData(/*beerName: String*/) {

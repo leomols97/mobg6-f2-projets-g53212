@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../../../../../../../layout/custom_preview.xml" value="0.2604298356510746" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.239" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.239" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2095" />
@@ -33,7 +34,8 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/fragment_who.xml" value="0.2359375" />
-        <entry key="app/src/main/res/layout/item_beer.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/item_beer.xml" value="0.2630208333333333" />
+        <entry key="app/src/main/res/layout/item_image.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/list_item_sleep_night_linear.xml" value="0.20520833333333333" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3770833333333333" />

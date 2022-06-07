@@ -3,16 +3,38 @@ package com.example.lemenestrel.FragmentAndVMs.Beers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.ItemBeerBinding
+import kotlinx.android.synthetic.main.item_beer.view.*
 
-//class BeersAdapter(val clickListener: BeersListener/*private val onClick: (Beers) -> Unit*/) :
-//    ListAdapter<Beers, BeersAdapter.ViewHolder>(BeerDiffCallback) {
+
+private const val PICK_IMAGE_REQUEST_CODE = 0
+class BeersAdapter (val urls: List<String>): RecyclerView.Adapter<BeersAdapter.BeersViewHolder>()
+//    (val clickListener: BeersListener/*private val onClick: (Beers) -> Unit*/) :
+//    ListAdapter<Beers, BeersAdapter.ViewHolder>(BeerDiffCallback)
+{
+
+    inner class BeersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeersViewHolder {
+         return BeersViewHolder( LayoutInflater.from(parent.context).inflate(R.layout.item_beer, parent, false) )
+    }
+
+    override fun onBindViewHolder(holder: BeersViewHolder, position: Int) {
+        val url = urls[position]
+        Glide.with(holder.itemView.context).load(url).into(holder.itemView.beer_picture_item)
+    }
+
+    override fun getItemCount(): Int {
+        return urls.size
+    }
 
 //    /* ViewHolder for Beer, takes in the inflated view and the onClick behavior. */
 //    class BeersViewHolder(itemView: View, val onClick: (Beers) -> Unit) :
@@ -82,16 +104,17 @@ import com.example.lemenestrel.databinding.ItemBeerBinding
 //    }
 //}
 
-object BeerDiffCallback : DiffUtil.ItemCallback<Beers>() {
-    override fun areItemsTheSame(oldItem: Beers, newItem: Beers): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: Beers, newItem: Beers): Boolean {
-        return oldItem.Name == newItem.Name
-    }
-}
-
-class BeersListener(val clickListener: (beerName: String) -> Unit) {
-    fun onClick(beer: Beers) = clickListener(beer.Name)
+//object BeerDiffCallback : DiffUtil.ItemCallback<Beers>() {
+//    override fun areItemsTheSame(oldItem: Beers, newItem: Beers): Boolean {
+//        return oldItem == newItem
+//    }
+//
+//    override fun areContentsTheSame(oldItem: Beers, newItem: Beers): Boolean {
+//        return oldItem.Name == newItem.Name
+//    }
+//}
+//
+//class BeersListener(val clickListener: (beerName: String) -> Unit) {
+//    fun onClick(beer: Beers) = clickListener(beer.Name)
+//}
 }

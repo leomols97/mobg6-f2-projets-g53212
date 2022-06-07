@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.fragment_admin_beer.*
 
 class AdminBeerFragment : Fragment() {
 
@@ -82,6 +83,12 @@ class AdminBeerFragment : Fragment() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
+        beer_picture_admin.setOnClickListener {
+            Intent(Intent.ACTION_GET_CONTENT).also {
+                it.type = "image/*"
+                startActivityForResult(it, IMAGE_BACK)
+            }
+        }
         startActivityForResult(intent, IMAGE_BACK)
     }
 
