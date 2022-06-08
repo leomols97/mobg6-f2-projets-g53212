@@ -82,9 +82,14 @@ class DataSource() {
 //
     // Returns beer thanks to his name
     fun getBeerWithName(name: String): Beers? {
-        beersLiveData.value?.let { beers ->
-            return beers.firstOrNull{ it.Name == name}
-        }
+//        beersLiveData.value?.let { beers ->
+//            return beers.firstOrNull{ it.Name == name}
+//        }
+//        return null
+
+        for (beer in beersList)
+            if (name == beer.Name)
+                return beer
         return null
     }
 

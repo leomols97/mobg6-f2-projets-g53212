@@ -96,7 +96,7 @@ class BeersFragment : Fragment() {
 
     private fun showListBeers() = CoroutineScope(Dispatchers.IO).launch {
         try {
-            val pictures = picturesReference.child("PictureFolder/").listAll().await()
+            val pictures = picturesReference.child("BeersPictures/").listAll().await()
             val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
             val beersData = mutableListOf<Beers>()

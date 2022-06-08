@@ -84,7 +84,7 @@ class AdminEventFragment : Fragment() {
 //    lateinit var storage: StorageReference
 //    // To make the picture upload possible
 //    private fun uploadPicture() {
-//        storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
+//        storage = FirebaseStorage.getInstance().reference.child("PictureBeersPicturesFolder")
 //        binding.selectPicture.setOnClickListener {
 //            selectPicture()
 //        }
