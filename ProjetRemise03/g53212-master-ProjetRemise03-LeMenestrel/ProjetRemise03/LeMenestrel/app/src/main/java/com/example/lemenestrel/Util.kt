@@ -1,33 +1,30 @@
-/*
- * Copyright 2019, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.lemenestrel
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.content.res.Resources
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.RecyclerView
 //import com.example.android.trackmysleepquality.database.SleepNight
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.coroutineContext
 
 /**
  * These functions create a formatted string that can be set in a TextView.
@@ -35,6 +32,7 @@ import java.util.concurrent.TimeUnit
 
 private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
 private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
+private lateinit var dialog: Dialog
 
 /**
  * Take the Long milliseconds returned by the system and stored in Room,
@@ -58,3 +56,39 @@ fun convertLongToDateString(systemTime: Long): String {
  * to the RecyclerView such as where on the screen it was last drawn during scrolling.
  */
 class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+
+fun isOnline(context: Context): Boolean {
+    val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    if (connectivityManager != null) {
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+    }
+    return false
+}
+
+
+
+fun showProgressDialog(context: Context) {
+    dialog = Dialog(context)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.setContentView(R.layout.progress_bar)
+    dialog.setCanceledOnTouchOutside(false)
+    dialog.show()
+}
+
+fun hideProgressDialog() {
+    dialog.dismiss()
+}

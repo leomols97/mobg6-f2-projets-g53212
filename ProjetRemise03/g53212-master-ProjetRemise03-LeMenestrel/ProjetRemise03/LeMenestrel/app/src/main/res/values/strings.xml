@@ -60,4 +60,6 @@
     <string name="title_fragment_brewery">Voici les brasseries que nous avons déjà promues au Ménestrel</string>
     <string name="title_fragment_artist">Voici les artistes que nous avons déjà promus au Ménestrel</string>
     <string name="title_fragment_event">Voici les événements que nous avons déjà organisés au Ménestrel</string>
+    <string name="no_internet_connection">Pour charger les données depuis internet, veuillez vous connecter à internet</string>
+    <string name="reload">Recharger</string>
 </resources>

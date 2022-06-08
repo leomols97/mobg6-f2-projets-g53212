@@ -10,19 +10,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentAdminBeerBinding
-import com.example.lemenestrel.databinding.FragmentBeersBinding
+import com.example.lemenestrel.isOnline
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_admin_beer.*
+
 
 class AdminBeerFragment : Fragment() {
 
@@ -37,6 +39,7 @@ class AdminBeerFragment : Fragment() {
     // This is only valid between onCreateView and
     // onDestroyView.
     private var _binding: FragmentAdminBeerBinding? = null
+    private lateinit var bind: FragmentAdminBeerBinding
     private val binding get() = _binding!!
 
     // Have the authenticated user
@@ -48,14 +51,14 @@ class AdminBeerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
+        _binding = FragmentAdminBeerBinding.inflate(inflater, scroll_view_admin_beer, false)
+        //_binding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_beer, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         uploadBeer()
     }
 
@@ -68,17 +71,17 @@ class AdminBeerFragment : Fragment() {
         binding.selectPicture.setOnClickListener {
             selectPicture()
         }
+        binding.beerPictureAdmin.setOnClickListener {
+            selectPicture()
+        }
     }
 
     private fun selectPicture() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        beer_picture_admin.setOnClickListener {
-            Intent(Intent.ACTION_GET_CONTENT).also {
-                it.type = "image/*"
-                startActivityForResult(it, IMAGE_BACK)
-            }
+        Intent(Intent.ACTION_GET_CONTENT).also {
+            it.type = "image/*"
         }
         startActivityForResult(intent, IMAGE_BACK)
     }
@@ -101,14 +104,22 @@ class AdminBeerFragment : Fragment() {
                     storage.child("beer_$pictureNameInApp")
                 binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadPicture.setOnClickListener {
-                    makePictureUpload(pictureNameInFirebase, pictureData)
-                    MakeBeerInfosUpload(uid)
+                    if (isOnline(requireContext())) {
+                        makePictureUpload(pictureNameInFirebase, pictureData)
+                        makeBeerInfosUpload(uid)
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            "Vous n'êtes pas connecté à internet \uD83D\uDE22",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
     }
 
-    private fun MakeBeerInfosUpload(uid: String?) {
+    private fun makeBeerInfosUpload(uid: String?) {
         try {
             var beerName: String = binding.beerNameAdmin.text.toString()
             var beerType: String = binding.beerType.text.toString()
@@ -153,10 +164,9 @@ class AdminBeerFragment : Fragment() {
 
     private fun makePictureUpload(
         pictureNameInFirebase: StorageReference,
-        pictureData: Uri?
-    ) {
-        if (binding.beerPictureAdmin.drawable != null
-                && !TextUtils.isEmpty(binding.beerNameAdmin.text)) {
+        pictureData: Uri?) {
+        if (binding.beerPictureAdmin.toString() != beer_picture_admin.toString()
+            && !TextUtils.isEmpty(binding.beerNameAdmin.text)) {
             pictureNameInFirebase.putFile(pictureData!!)
                 .addOnFailureListener {
                     Toast.makeText(
@@ -166,8 +176,7 @@ class AdminBeerFragment : Fragment() {
                     ).show()
                 }
         } else {
-            Log.i(TAG, "MLKJHGFDS ")
-            Log.v(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
+            Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
             Toast.makeText(
                 context,
                 "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09 \n" +

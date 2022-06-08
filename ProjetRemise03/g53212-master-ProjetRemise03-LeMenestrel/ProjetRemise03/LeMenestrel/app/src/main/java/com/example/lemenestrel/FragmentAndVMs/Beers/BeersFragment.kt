@@ -1,16 +1,26 @@
 package com.example.lemenestrel.FragmentAndVMs.Beers
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.WorkerThread
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.databinding.FragmentBeersBinding
-import com.example.lemenestrel.databinding.FragmentBreweriesBinding
+import com.example.lemenestrel.hideProgressDialog
+import com.example.lemenestrel.isOnline
+import com.example.lemenestrel.showProgressDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,6 +33,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
+import kotlin.coroutines.coroutineContext
 
 
 const val BEER_NAME = "beer name"
@@ -38,12 +49,12 @@ class BeersFragment : Fragment() {
 
     // References the Firebase folder with all the beer pictures
     val picturesReference = FirebaseStorage.getInstance().reference
-
-    // List of beers
-    private lateinit var beersArray: Array<Beers>
-
-    // For the widgets
-    private lateinit var recyclerView: RecyclerView
+//
+//    // List of beers
+//    private lateinit var beersArray: Array<Beers>
+//
+//    // For the widgets
+//    private lateinit var recyclerView: RecyclerView
 
     // This is only valid between onCreateView and
     // onDestroyView.
@@ -60,31 +71,36 @@ class BeersFragment : Fragment() {
         _binding = FragmentBeersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Status for the picture upload success
-        val IMAGE_BACK = 1
-//        imageView2.setOnClickListener {
-//            Intent(Intent.ACTION_GET_CONTENT).also {
-//                it.type = "image/*"
-//                startActivityForResult(it, IMAGE_BACK)
-//            }
-//        }
-        
-        listBeers()
 
-//        recyclerView = requireView().findViewById(R.id.recycler_view_beers)
-
+        if (isOnline(requireContext())) {
+            binding.noInternetConnection.visibility = View.GONE
+            binding.reloadButton.visibility = View.GONE
+//            showProgressDialog(requireActivity())
+            showListBeers()
+//            hideProgressDialog()
+        } else {
+            binding.noInternetConnection.visibility = View.VISIBLE
+            binding.reloadButton.visibility = View.VISIBLE
+            binding.reloadButton.setOnClickListener {
+                if (isOnline(requireContext())) {
+                    binding.noInternetConnection.visibility = View.GONE
+                    binding.reloadButton.visibility = View.GONE
+                    showListBeers()
+                } else {
+                    Toast.makeText(requireActivity(), "Vous n'êtes toujours pas connecté à internet \uD83D\uDE09", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
         return root
     }
 
-    private fun listBeers() = CoroutineScope(Dispatchers.IO).launch {
+    private fun showListBeers() = CoroutineScope(Dispatchers.IO).launch {
         try {
             val pictures = picturesReference.child("PictureFolder/").listAll().await()
-//            beersReference.reference.orderByKey()
-            //val beers = beersReference.reference.child("Beers").get().await()
             val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
             val beersData = mutableListOf<Beers>()
-            for(picture in pictures.items) {
+            for (picture in pictures.items) {
                 val url = picture.downloadUrl.await()
                 picturesUrls.add(url.toString())
             }
@@ -93,6 +109,9 @@ class BeersFragment : Fragment() {
             }
             withContext(Dispatchers.Main) {
                 val beerAdapter = BeersAdapter(picturesUrls, beersData)
+                // This is the manner to call the RecyclerView. Declring this
+                // private lateinit var recyclerView: RecyclerView
+                // won't let me apply { } on it
                 recycler_view_beers.apply {
                     adapter = beerAdapter
                     layoutManager = LinearLayoutManager(requireActivity())
