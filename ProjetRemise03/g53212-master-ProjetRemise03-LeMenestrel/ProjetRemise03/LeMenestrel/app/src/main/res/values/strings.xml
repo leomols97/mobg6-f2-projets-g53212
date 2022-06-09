@@ -63,4 +63,5 @@
     <string name="title_fragment_event">Voici les événements que nous avons déjà organisés au Ménestrel</string>
     <string name="no_internet_connection">Pour charger les données depuis internet, veuillez vous connecter à internet</string>
     <string name="reload">Recharger</string>
+    <string name="text_fragment_who">Le Ménestrel promeut chez vous des microbrasseries et des artistes musicaux autour de chez vous. Nos événements itinérants vous feront redécouvrir votre région sous ses aspects les plus sociaux !</string>
 </resources>
