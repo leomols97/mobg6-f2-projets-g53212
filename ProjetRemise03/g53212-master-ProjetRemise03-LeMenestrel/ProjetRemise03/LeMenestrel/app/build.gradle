@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+//apply plugin: "androidx.navigation.safeargs"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 
 android {
     compileSdk 32
@@ -106,6 +109,9 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    // Dynamic Feature Module Support
+//    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
     // Progress Bar
 //    implementation 'android.view.animation.RotateAnimation:3.1.0'

@@ -28,6 +28,7 @@
         <entry key="app/src/main/res/layout/fragment_admin_event.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_admin_place.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_artists.xml" value="0.27447916666666666" />
+        <entry key="app/src/main/res/layout/fragment_beer_detail.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/fragment_beers.xml" value="0.23854166666666668" />
         <entry key="app/src/main/res/layout/fragment_breweries.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/fragment_events.xml" value="0.2359375" />

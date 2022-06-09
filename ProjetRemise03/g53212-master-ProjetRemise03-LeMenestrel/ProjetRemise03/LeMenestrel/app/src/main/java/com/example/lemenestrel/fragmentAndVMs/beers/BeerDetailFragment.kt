@@ -7,15 +7,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lemenestrel.R
 
-class BeerDetailActivity : AppCompatActivity() {
+class BeerDetailFragment : AppCompatActivity() {
 
     private val beerDetailViewModel by viewModels<BeerDetailViewModel> {
-        BeerDetailViewModelFactory(this)
+        BeerDetailViewModelFactory()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_beer)
+        setContentView(R.layout.fragment_beer_details)
 
         var currentBeerName: String? = null
 

@@ -73,19 +73,19 @@ class LoginFragment : Fragment() {
 
     private fun goToWhichAdminFragment(view: View) {
         binding.goToAdminBeer.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_beer);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_beers);
         }
         binding.goToAdminArtist.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_artist);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_artists);
         }
         binding.goToAdminBrewery.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_brewery);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_breweries);
         }
         binding.goToAdminEvent.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_event);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_events);
         }
         binding.goToAdminPlace.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_place);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_places);
         }
     }
 

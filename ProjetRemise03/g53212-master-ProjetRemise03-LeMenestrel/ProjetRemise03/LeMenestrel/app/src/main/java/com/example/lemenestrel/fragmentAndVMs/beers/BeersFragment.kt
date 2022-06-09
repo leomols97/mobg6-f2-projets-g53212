@@ -1,11 +1,18 @@
 package com.example.lemenestrel.fragmentAndVMs.beers
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lemenestrel.database.dao.Dao
 import com.example.lemenestrel.database.models.Beer
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.ItemBeerBinding
@@ -15,12 +22,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_beers.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
+import kotlinx.coroutines.withContext
 
 
 const val BEER_NAME = "beer name"
@@ -42,6 +49,14 @@ class BeersFragment : Fragment() {
     // References the Firebase folder with all the beer pictures
     val picturesReference = FirebaseStorage.getInstance().reference
 
+    private val beersViewModel: BeersViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        ViewModelProvider(this, BeersViewModelFactory(/*activity.application*/))
+            .get(BeersViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +65,36 @@ class BeersFragment : Fragment() {
 
         _binding = FragmentBeersBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+        binding.lifecycleOwner = this
+        // Get a reference to the ViewModel associated with this fragment.
+//        val viewModelFactory = BeersViewModelFactory()
+//        val beersViewModel = ViewModelProvider(this, viewModelFactory).get(BeersViewModel::class.java)
+
+//        val beersAdapter = BeersAdapter(BeersListener { beerName ->
+//            Toast.makeText(context, "${beerName}", Toast.LENGTH_LONG).show()
+//            beersViewModel.onBeerClicked(beerName)
+//        })
+//
+//        binding.recyclerViewBeers.adapter = beersAdapter
+//
+//        beersViewModel.beersList.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                beersAdapter.submitList(it)
+//            }
+//        })
+
+        beersViewModel.navigateToBeerDetail.observe(viewLifecycleOwner, Observer { beerName ->
+            beerName?.let {
+                this.findNavController().navigate(
+                    BeersFragmentDirections.actionNavBeersToBeerDetailFragment(beerName))
+                beersViewModel.onBeerDetailNavigated()
+            }
+        })
+        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+        binding.recyclerViewBeers.layoutManager = manager
 
         handlingNoInternetConnexion()
         return root
@@ -93,18 +138,18 @@ class BeersFragment : Fragment() {
                 beersData.add(beer)
             }
             withContext(Dispatchers.Main) {
-//                val beerAdapter = BeersAdapter(picturesUrls, beersData)
-//                // This is the manner to call the RecyclerView. Declring this
-//                // private lateinit var recyclerView: RecyclerView
-//                // won't let me apply { } on it
-//                recycler_view_beers.apply {
-//                    adapter = beerAdapter
-//                    layoutManager = LinearLayoutManager(requireActivity())
-//                }
+                val beersAdapter = BeersAdapter(picturesUrls, beersData)
+                // This is the manner to call the RecyclerView. Declaring this
+                // private lateinit var recyclerView: RecyclerView
+                // won't let me apply { } on it
+                recycler_view_beers.apply {
+                    adapter = beersAdapter
+                    layoutManager = LinearLayoutManager(requireActivity())
+                }
             }
         } catch (e :Exception) {
             withContext(Dispatchers.Main) {
-                Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

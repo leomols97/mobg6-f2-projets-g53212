@@ -55,8 +55,9 @@
     <string name="go_to_admin_event">Aller vers l\'administration des événements</string>
     <string name="go_to_admin_place">Aller vers l\'administration des lieux</string>
 
-    <!-- Beer Fragment-->
+    <!-- Beers Fragment-->
     <string name="title_fragment_beer">Voici les bières que nous avons déjà proposées au Ménestrel</string>
+    <string name="menu_beer_details">Détails de la bière</string>
 
     <string name="title_fragment_brewery">Voici les brasseries que nous avons déjà promues au Ménestrel</string>
     <string name="title_fragment_artist">Voici les artistes que nous avons déjà promus au Ménestrel</string>

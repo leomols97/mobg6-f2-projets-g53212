@@ -2,16 +2,16 @@ package com.example.lemenestrel.fragmentAndVMs.admin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.example.lemenestrel.database.dao.DataSource
+import com.example.lemenestrel.database.dao.Dao
 import com.example.lemenestrel.database.models.Beer
 
-class AdminBeerViewModel(val dataSource: DataSource) : ViewModel() {
+class AdminBeerViewModel(val dao: Dao) : ViewModel() {
 
     companion object {
         val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
     }
 
-    val beersLiveData = dataSource.getBeersList()
+    val beersLiveData = dao.getBeersList()
 
     enum class AuthenticationState {
         AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
@@ -26,6 +26,6 @@ class AdminBeerViewModel(val dataSource: DataSource) : ViewModel() {
     }
 
     fun getBeerWithName(beerName: String): Beer? {
-        return dataSource.getBeerWithName(beerName)
+        return dao.getBeerWithName(beerName)
     }
 }

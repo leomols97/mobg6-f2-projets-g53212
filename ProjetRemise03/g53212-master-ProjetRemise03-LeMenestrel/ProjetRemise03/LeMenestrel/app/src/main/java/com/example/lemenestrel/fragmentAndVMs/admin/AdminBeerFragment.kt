@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.lemenestrel.database.dao.DataSource
+import com.example.lemenestrel.database.dao.Dao
 import com.example.lemenestrel.database.models.Beer
 import com.example.lemenestrel.databinding.FragmentAdminBeerBinding
 import com.example.lemenestrel.isOnline
@@ -43,8 +43,8 @@ class AdminBeerFragment : Fragment() {
     private val viewModel by viewModels<AdminBeerViewModel>()
 
     // Link the dao to use it into the ViewModel
-    val dataSource: DataSource = DataSource()
-    val adminBeerViewModel: AdminBeerViewModel = AdminBeerViewModel(dataSource)
+    val dao: Dao = Dao()
+    val adminBeerViewModel: AdminBeerViewModel = AdminBeerViewModel(dao)
 
     // This is only valid between onCreateView and
     // onDestroyView.
@@ -244,48 +244,56 @@ class AdminBeerFragment : Fragment() {
     private fun makePictureUpload(
         pictureNameInFirebase: StorageReference,
         pictureData: Uri?) {
-        // Verifies that a new picture for the beer has been selected
-        if (binding.beerPictureAdmin.toString() == beer_picture_admin.toString()) {
-            // Verifies that no field is empty
-            if (!TextUtils.isEmpty(binding.beerNameAdmin.text)
-                && !TextUtils.isEmpty(binding.beerAlcoolAdmin.text)
-                && !TextUtils.isEmpty(binding.beerBreweriesAdmin.text)
-                && !TextUtils.isEmpty(binding.beerEbcAdmin.text)
-                && !TextUtils.isEmpty(binding.beerIbuAdmin.text)
-                && !TextUtils.isEmpty(binding.beerTypeAdmin.text)) {
-                // Verifies that no beer of this name exists in the DB
-                if (binding.beerNameAdmin.text.toString() != adminBeerViewModel.getBeerWithName(binding.beerNameAdmin.text.toString())?.Name.toString()) {
-                    pictureNameInFirebase.putFile(pictureData!!)
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                requireActivity(),
-                                "La mise en ligne de la photo ne s'est pas déroulée correctement $emojìSady",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Cette bière a déjà été ajoutée à l'app $emojìWink",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            } else {
-                Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
-                Toast.makeText(
-                    context,
-                    "N'oublie pas de remplir tous les champs $emojìWink",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        } else {
-            Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
-            Toast.makeText(
-                context,
-                "A quoi ressemble ta bière ? Sélectionne une image $emojìWink",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        dao.makePictureUpload(
+            pictureNameInFirebase,
+            pictureData,
+            binding,
+            beer_picture_admin,
+            adminBeerViewModel,
+            requireActivity(),
+            requireContext())
+//        // Verifies that a new picture for the beer has been selected
+//        if (binding.beerPictureAdmin.toString() == beer_picture_admin.toString()) {
+//            // Verifies that no field is empty
+//            if (!TextUtils.isEmpty(binding.beerNameAdmin.text)
+//                && !TextUtils.isEmpty(binding.beerAlcoolAdmin.text)
+//                && !TextUtils.isEmpty(binding.beerBreweriesAdmin.text)
+//                && !TextUtils.isEmpty(binding.beerEbcAdmin.text)
+//                && !TextUtils.isEmpty(binding.beerIbuAdmin.text)
+//                && !TextUtils.isEmpty(binding.beerTypeAdmin.text)) {
+//                // Verifies that no beer of this name exists in the DB
+//                if (binding.beerNameAdmin.text.toString() != adminBeerViewModel.getBeerWithName(binding.beerNameAdmin.text.toString())?.Name.toString()) {
+//                    pictureNameInFirebase.putFile(pictureData!!)
+//                        .addOnFailureListener {
+//                            Toast.makeText(
+//                                requireActivity(),
+//                                "La mise en ligne de la photo ne s'est pas déroulée correctement $emojìSady",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                } else {
+//                    Toast.makeText(
+//                        context,
+//                        "Cette bière a déjà été ajoutée à l'app $emojìWink",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            } else {
+//                Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
+//                Toast.makeText(
+//                    context,
+//                    "N'oublie pas de remplir tous les champs $emojìWink",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        } else {
+//            Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
+//            Toast.makeText(
+//                context,
+//                "A quoi ressemble ta bière ? Sélectionne une image $emojìWink",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
     }
 
     override fun onDestroyView() {
