@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.lemenestrel.Database.Dao.DataSource
-import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.Database.Models.Beer
 import com.example.lemenestrel.databinding.FragmentAdminBeerBinding
 import com.example.lemenestrel.isOnline
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_admin_beer.*
-import kotlinx.coroutines.tasks.await
 
 
 class AdminBeerFragment : Fragment() {
@@ -78,8 +77,7 @@ class AdminBeerFragment : Fragment() {
             if (!TextUtils.isEmpty(binding.beerNameAdmin.text)) {
                 if (binding.beerNameAdmin.text.toString() == adminBeerViewModel.getBeerWithName(
                         binding.beerNameAdmin.text.toString()
-                    )?.Name.toString()
-                ) {
+                    )?.Name.toString()) {
                     val beerName = binding.beerNameAdmin.text.toString()
                     val beerDataReference = FirebaseDatabase.getInstance().getReference()
                         .child("Beers").child(beerName)
@@ -176,12 +174,11 @@ class AdminBeerFragment : Fragment() {
                 auth = FirebaseAuth.getInstance()
                 val uid = auth.currentUser?.uid
 
-                // Get the Firebase database for a specific table : Beers
+                // Get the Firebase database for a specific table : Beer
                 databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 
                 val pictureData = data!!.getData()
-                var pictureNameInApp = "beer"
-                pictureNameInApp = binding.beerNameAdmin.text.toString()
+                var pictureNameInApp = binding.beerNameAdmin.text.toString()
                 val pictureNameInFirebase: StorageReference = storage.child(pictureNameInApp)
                 binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadBeerAdmin.setOnClickListener {
@@ -213,7 +210,7 @@ class AdminBeerFragment : Fragment() {
             // Make an array out of the breweries received
             val beBreweries = beerBreweries.split(",").toTypedArray()
             val breweries: MutableList<String> = beBreweries.toMutableList()
-            val beer = Beers(beerName, beerType, beerAlcool, breweries, beerEbc, beerIbu, beerPicture)
+            val beer = Beer(beerName, beerType, beerAlcool, breweries, beerEbc, beerIbu, beerPicture)
 
             if (uid != null) {
                 if (binding.beerNameAdmin.text.toString() != adminBeerViewModel.getBeerWithName(binding.beerNameAdmin.text.toString())?.Name.toString()) {

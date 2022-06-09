@@ -1,12 +1,9 @@
 package com.example.lemenestrel.FragmentAndVMs.Admin
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import androidx.preference.PreferenceManager
 import com.example.lemenestrel.Database.Dao.DataSource
-import com.example.lemenestrel.Database.Models.Beers
-import com.example.lemenestrel.R
+import com.example.lemenestrel.Database.Models.Beer
 
 class AdminBeerViewModel(val dataSource: DataSource) : ViewModel() {
 
@@ -28,7 +25,7 @@ class AdminBeerViewModel(val dataSource: DataSource) : ViewModel() {
         }
     }
 
-    fun getBeerWithName(beerName: String): Beers? {
+    fun getBeerWithName(beerName: String): Beer? {
         return dataSource.getBeerWithName(beerName)
     }
 }

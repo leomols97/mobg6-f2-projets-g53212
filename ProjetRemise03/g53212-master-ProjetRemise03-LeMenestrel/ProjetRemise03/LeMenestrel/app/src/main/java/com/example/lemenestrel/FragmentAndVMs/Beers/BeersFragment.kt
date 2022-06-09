@@ -1,26 +1,15 @@
 package com.example.lemenestrel.FragmentAndVMs.Beers
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.WorkerThread
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.Database.Models.Beer
 import com.example.lemenestrel.databinding.FragmentBeersBinding
-import com.example.lemenestrel.hideProgressDialog
 import com.example.lemenestrel.isOnline
-import com.example.lemenestrel.showProgressDialog
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -33,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import kotlin.coroutines.coroutineContext
 
 
 const val BEER_NAME = "beer name"
@@ -41,7 +29,7 @@ const val BEER_NAME = "beer name"
 class BeersFragment : Fragment() {
 
     companion object {
-        const val TAG = "BeerFragment"
+        const val TAG = "BeersFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
@@ -51,7 +39,7 @@ class BeersFragment : Fragment() {
     val picturesReference = FirebaseStorage.getInstance().reference
 //
 //    // List of beers
-//    private lateinit var beersArray: Array<Beers>
+//    private lateinit var beersArray: Array<Beer>
 //
 //    // For the widgets
 //    private lateinit var recyclerView: RecyclerView
@@ -99,7 +87,7 @@ class BeersFragment : Fragment() {
             val pictures = picturesReference.child("BeersPictures/").listAll().await()
             val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
-            val beersData = mutableListOf<Beers>()
+            val beersData = mutableListOf<Beer>()
             for (picture in pictures.items) {
                 val url = picture.downloadUrl.await()
                 picturesUrls.add(url.toString())
@@ -124,8 +112,8 @@ class BeersFragment : Fragment() {
         }
     }
 
-    private fun getBeers(): List<Beers> {
-        val beers: MutableList<Beers> = mutableListOf()
+    private fun getBeers(): List<Beer> {
+        val beers: MutableList<Beer> = mutableListOf()
         val ref = FirebaseDatabase.getInstance().getReference("Beers")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -141,7 +129,7 @@ class BeersFragment : Fragment() {
                         val beerIbu = Integer.parseInt(it.child("ibu").value.toString())
                         val beerPicture = it.child("picture").value.toString()
 
-                        val beer = Beers(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
+                        val beer = Beer(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
 
                         beers.add(beer)
                     }

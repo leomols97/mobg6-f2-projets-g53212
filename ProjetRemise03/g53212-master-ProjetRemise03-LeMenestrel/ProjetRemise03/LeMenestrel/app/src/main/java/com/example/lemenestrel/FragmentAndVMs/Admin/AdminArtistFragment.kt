@@ -1,25 +1,16 @@
 package com.example.lemenestrel.FragmentAndVMs.Admin
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentAdminArtistBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 
 class AdminArtistFragment : Fragment() {
 
@@ -48,7 +39,7 @@ class AdminArtistFragment : Fragment() {
 //        auth = FirebaseAuth.getInstance()
 //        val uid = auth.currentUser?.uid
 //
-//        // Get the Firebase database for a specific table : Beers
+//        // Get the Firebase database for a specific table : Beer
 //        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 //
 //        binding.upload.setOnClickListener {
@@ -64,7 +55,7 @@ class AdminArtistFragment : Fragment() {
 //            val breweries = MutableLiveData<Array<String>>()
 //            val test = StringTokenizer(beerBreweries.toString(), ",").toList()
 //
-//            //<val beer = Beers(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
+//            //<val beer = Beer(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
 //        }
 
         return binding.root

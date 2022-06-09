@@ -2,7 +2,7 @@ package com.example.lemenestrel.Database.Dao
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.Database.Models.Beer
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -13,8 +13,8 @@ class DataSource() {
     private val beersList = getBeers()
     private val beersLiveData = MutableLiveData(beersList)
 
-    fun getBeers(): List<Beers> {
-        val beers: MutableList<Beers> = mutableListOf()
+    fun getBeers(): List<Beer> {
+        val beers: MutableList<Beer> = mutableListOf()
         val ref = FirebaseDatabase.getInstance().getReference("Beers")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -30,7 +30,7 @@ class DataSource() {
                         val beerIbu = Integer.parseInt(it.child("ibu").value.toString())
                         val beerPicture = it.child("picture").value.toString()
 
-                        val beer = Beers(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
+                        val beer = Beer(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
 
                         beers.add(beer)
                     }
@@ -81,7 +81,7 @@ class DataSource() {
 //    }
 //
     // Returns beer thanks to his name
-    fun getBeerWithName(name: String): Beers? {
+    fun getBeerWithName(name: String): Beer? {
 //        beersLiveData.value?.let { beers ->
 //            return beers.firstOrNull{ it.Name == name}
 //        }
@@ -93,7 +93,7 @@ class DataSource() {
         return null
     }
 
-    fun getBeersList(): LiveData<List<Beers>> {
+    fun getBeersList(): LiveData<List<Beer>> {
         return beersLiveData
     }
 //

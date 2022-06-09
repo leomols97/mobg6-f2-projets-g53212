@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.lemenestrel.Database.Dao.DataSource
-import com.example.lemenestrel.Database.Models.Beers
+import com.example.lemenestrel.Database.Models.Beer
 
 class BeerDetailViewModel(private val datasource: DataSource) : ViewModel() {
 
     // Queries datasource to returns a Beer that corresponds to a name
-    fun getBeerWithName(name: String) : Beers? {
+    fun getBeerWithName(name: String) : Beer? {
         return datasource.getBeerWithName(name)
     }
 }

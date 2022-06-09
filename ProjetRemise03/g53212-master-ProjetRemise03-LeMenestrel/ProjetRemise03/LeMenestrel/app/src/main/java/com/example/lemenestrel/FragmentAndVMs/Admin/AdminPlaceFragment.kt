@@ -48,7 +48,7 @@ class AdminPlaceFragment : Fragment() {
 //        auth = FirebaseAuth.getInstance()
 //        val uid = auth.currentUser?.uid
 //
-//        // Get the Firebase database for a specific table : Beers
+//        // Get the Firebase database for a specific table : Beer
 //        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 //
 //        binding.upload.setOnClickListener {
@@ -64,7 +64,7 @@ class AdminPlaceFragment : Fragment() {
 //            val breweries = MutableLiveData<Array<String>>()
 //            val test = StringTokenizer(beerBreweries.toString(), ",").toList()
 //
-//            //<val beer = Beers(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
+//            //<val beer = Beer(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
 //        }
 
         return binding.root
