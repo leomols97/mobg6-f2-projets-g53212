@@ -74,7 +74,7 @@ class BeersAdapter(val pictureUrls: List<String>, val beers: List<Beers>): Recyc
         val parsedUrlBeforeBeerName = url.split("BeersPictures%2F").toMutableList()
         val parsedUrlAfterBeerName = parsedUrlBeforeBeerName[1].split("?").toMutableList()
         var newURL = parsedUrlBeforeBeerName[0] + "BeersPictures%2F"
-        parsedUrlBeforeBeerName[1] = "beer_"
+//        parsedUrlBeforeBeerName[1] = "beer_"
         parsedUrlBeforeBeerName[1] += beerName
         newURL += parsedUrlBeforeBeerName[1]
         if (parsedUrlAfterBeerName.size > 2) {

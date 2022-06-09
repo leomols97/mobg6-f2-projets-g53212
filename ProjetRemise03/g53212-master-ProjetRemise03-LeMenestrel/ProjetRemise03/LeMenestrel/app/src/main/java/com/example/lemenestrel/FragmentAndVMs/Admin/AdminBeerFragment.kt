@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_admin_beer.*
+import kotlinx.coroutines.tasks.await
 
 
 class AdminBeerFragment : Fragment() {
@@ -29,18 +30,26 @@ class AdminBeerFragment : Fragment() {
     companion object {
         const val TAG = "AdminBeerFragment"
         const val SIGN_IN_RESULT_CODE = 1001
+        // Status for the picture upload success
+        val IMAGE_BACK = 1
+        // Only emojis to brighten up the app :)
+        private var emojìWink = "\uD83D\uDE09"
+        private var emojìSady = "\uD83D\uDE29"
+        private var emojìSad = "\uD83D\uDE22"
+        private var emojìBeer = "\uD83C\uDF7A"
+        private var emojìSmile = "🙂"
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
     private val viewModel by viewModels<AdminBeerViewModel>()
 
+    // Link the dao to use it into the ViewModel
     val dataSource: DataSource = DataSource()
     val adminBeerViewModel: AdminBeerViewModel = AdminBeerViewModel(dataSource)
 
     // This is only valid between onCreateView and
     // onDestroyView.
     private var _binding: FragmentAdminBeerBinding? = null
-    private lateinit var bind: FragmentAdminBeerBinding
     private val binding get() = _binding!!
 
     // Have the authenticated user
@@ -61,31 +70,87 @@ class AdminBeerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         uploadBeer()
+        handlingDeleteABeer()
     }
 
-    // Status for the picture upload success
-    val IMAGE_BACK = 1
+    private fun handlingDeleteABeer() {
+        binding.deleteBeerAdmin.setOnClickListener {
+            if (!TextUtils.isEmpty(binding.beerNameAdmin.text)) {
+                if (binding.beerNameAdmin.text.toString() == adminBeerViewModel.getBeerWithName(
+                        binding.beerNameAdmin.text.toString()
+                    )?.Name.toString()
+                ) {
+                    val beerName = binding.beerNameAdmin.text.toString()
+                    val beerDataReference = FirebaseDatabase.getInstance().getReference()
+                        .child("Beers").child(beerName)
+                    beerDataReference.removeValue().addOnCompleteListener {
+                        Toast.makeText(
+                            context,
+                            "Données de la bière supprimées avec succès du serveur $emojìSmile",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            context,
+                            "Données de la bière NON supprimées du serveur. En avez-vous le droit ? Si erreur, envoyez-nous un mail $emojìWink",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    val beerPictureReference =
+                        FirebaseStorage.getInstance().reference.child("BeersPictures/")
+                            .child(beerName)
+                    beerPictureReference.delete().addOnCompleteListener {
+                        Toast.makeText(
+                            context,
+                            "Photo de la bière supprimée avec succès du serveur $emojìSmile",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(
+                            context,
+                            "Photo de la bière NON supprimée du serveur. En avez-vous le droit ? Si erreur, envoyez-nous un mail $emojìWink",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Cette bière n'a pas encore été promue par nos soins $emojìSad",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                Toast.makeText(
+                    context,
+                    "Entre d'abord un nom de bière $emojìWink",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
     lateinit var storage: StorageReference
     // To make the picture upload possible
     private fun  uploadBeer() {
         storage = FirebaseStorage.getInstance().reference.child("BeersPictures")
         binding.beerSelectPicture.setOnClickListener {
-            selectPicture()
-        }
-        binding.beerPictureAdmin.setOnClickListener {
-            selectPicture()
-        }
-
-        binding.deleteBeerAdmin.setOnClickListener {
-            if (binding.beerNameAdmin.text.toString() == adminBeerViewModel.getBeerWithName(binding.beerNameAdmin.text.toString())?.Name.toString()) {
-                Log.i(TAG, binding.beerNameAdmin.text.toString())
-                val mPostReference = FirebaseDatabase.getInstance().getReference()
-                    .child("Beers").child(binding.beerNameAdmin.text.toString());
-                mPostReference.removeValue();
+            if (!TextUtils.isEmpty(binding.beerNameAdmin.text)) {
+                selectPicture()
             } else {
                 Toast.makeText(
                     context,
-                    "Cette bière n'a pas encore été promue par nos soins \uD83D\uDE22",
+                    "Entre d'abord un nom de bière $emojìWink",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        binding.beerPictureAdmin.setOnClickListener {
+            if (!TextUtils.isEmpty(binding.beerNameAdmin.text)) {
+                selectPicture()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Entre d'abord un nom de bière $emojìWink",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -115,9 +180,9 @@ class AdminBeerFragment : Fragment() {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 
                 val pictureData = data!!.getData()
-                val pictureNameInApp = binding.beerNameAdmin.text.toString()
-                val pictureNameInFirebase: StorageReference =
-                    storage.child("beer_$pictureNameInApp")
+                var pictureNameInApp = "beer"
+                pictureNameInApp = binding.beerNameAdmin.text.toString()
+                val pictureNameInFirebase: StorageReference = storage.child(pictureNameInApp)
                 binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadBeerAdmin.setOnClickListener {
                     if (isOnline(requireContext())) {
@@ -126,7 +191,7 @@ class AdminBeerFragment : Fragment() {
                     } else {
                         Toast.makeText(
                             requireActivity(),
-                            "Vous n'êtes pas connecté à internet \uD83D\uDE22",
+                            "Vous n'êtes pas connecté à internet $emojìSad",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -157,13 +222,13 @@ class AdminBeerFragment : Fragment() {
                             uploadBeer()
                             Toast.makeText(
                                 requireActivity(),
-                                "La bière a été ajoutée au serveur \uD83C\uDF7A",
+                                "La bière a été ajoutée au serveur $emojìBeer",
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
                             Toast.makeText(
                                 requireActivity(),
-                                "La bière n'a pas été ajoutée au serveur. Vous n'avez probablement pas le droit de le faire \uD83D\uDE22",
+                                "La bière n'a pas été ajoutée au serveur. En avez-vous le droit ? Si erreur, envoyez-nous un mail $emojìWink",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -173,7 +238,7 @@ class AdminBeerFragment : Fragment() {
         } catch (exception: NumberFormatException) {
             Toast.makeText(
                 requireActivity(),
-                "Il faut entrer des nombres pour l'alcool, l'EBC et l'IBU \uD83D\uDE09",
+                "Il faut entrer des nombres pour l'alcool, l'EBC et l'IBU $emojìWink",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -182,10 +247,6 @@ class AdminBeerFragment : Fragment() {
     private fun makePictureUpload(
         pictureNameInFirebase: StorageReference,
         pictureData: Uri?) {
-        Log.i(TAG, binding.beerNameAdmin.text.toString())
-        Log.i(TAG,
-            adminBeerViewModel.getBeerWithName(binding.beerNameAdmin.text.toString())?.Name.toString()
-        )
         // Verifies that a new picture for the beer has been selected
         if (binding.beerPictureAdmin.toString() == beer_picture_admin.toString()) {
             // Verifies that no field is empty
@@ -201,14 +262,14 @@ class AdminBeerFragment : Fragment() {
                         .addOnFailureListener {
                             Toast.makeText(
                                 requireActivity(),
-                                "La mise en ligne de la photo ne s'est pas déroulée correctement \uD83D\uDE29",
+                                "La mise en ligne de la photo ne s'est pas déroulée correctement $emojìSady",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                 } else {
                     Toast.makeText(
                         context,
-                        "Cette bière a déjà été ajoutée à l'app \uD83D\uDE09",
+                        "Cette bière a déjà été ajoutée à l'app $emojìWink",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -216,7 +277,7 @@ class AdminBeerFragment : Fragment() {
                 Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
                 Toast.makeText(
                     context,
-                    "N'oublie pas de remplir tous les champs \uD83D\uDE09",
+                    "N'oublie pas de remplir tous les champs $emojìWink",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -224,7 +285,7 @@ class AdminBeerFragment : Fragment() {
             Log.i(TAG, "Photo nulle ? " + (binding.beerPictureAdmin.drawable == null))
             Toast.makeText(
                 context,
-                "A quoi ressemble ta bière ? Sélectionne une image \uD83D\uDE09",
+                "A quoi ressemble ta bière ? Sélectionne une image $emojìWink",
                 Toast.LENGTH_SHORT
             ).show()
         }

@@ -105,7 +105,7 @@ class AdminArtistFragment : Fragment() {
 //                val pictureData = data!!.getData()
 //                val pictureNameInApp = binding.pictureName.text
 //                val pictureNameInFirebase: StorageReference =
-//                    storage.child("beer_$pictureNameInApp")
+//                    storage.child(pictureNameInAp)
 //                binding.imageView.setImageURI(pictureData)
 //                binding.uploadPicture.setOnClickListener {
 //                    makeUpload(pictureNameInFirebase, pictureData)
