@@ -5,11 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentAndVMs.Beers.BeersFragment">
-
-    <!-- In the TextView, we can access the nightsString LiveData,
-         which keeps it displayed and updated in the TextView
-         whenever it changes. -->
+    tools:context=".fragmentAndVMs.beers.BeersFragment">
 
     <TextView
         android:id="@+id/text_beers"

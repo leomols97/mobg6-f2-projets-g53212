@@ -7,67 +7,67 @@
 
     <fragment
         android:id="@+id/nav_who"
-        android:name="com.example.lemenestrel.FragmentAndVMs.About.AboutFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.about.AboutFragment"
         android:label="@string/menu_who"
         tools:layout="@layout/fragment_who" />
 
     <fragment
         android:id="@+id/nav_breweries"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Breweries.BreweriesFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.breweries.BreweriesFragment"
         android:label="@string/menu_breweries"
         tools:layout="@layout/fragment_breweries" />
 
     <fragment
         android:id="@+id/nav_events"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Events.EventsFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.events.EventsFragment"
         android:label="@string/menu_events"
         tools:layout="@layout/fragment_events" />
 
     <fragment
         android:id="@+id/nav_artists"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Artists.ArtistsFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.artists.ArtistsFragment"
         android:label="@string/menu_artists"
         tools:layout="@layout/fragment_artists" />
 
     <fragment
         android:id="@+id/nav_beers"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Beers.BeersFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.beers.BeersFragment"
         android:label="@string/menu_beers"
         tools:layout="@layout/fragment_beers" />
 
     <fragment
         android:id="@+id/nav_admin_beers"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminBeerFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.admin.AdminBeerFragment"
         android:label="@string/menu_admin_beers"
         tools:layout="@layout/fragment_admin_beer" />
 
     <fragment
         android:id="@+id/nav_admin_artists"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminArtistFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.admin.AdminArtistFragment"
         android:label="@string/menu_admin_artists"
         tools:layout="@layout/fragment_admin_artist" />
 
     <fragment
         android:id="@+id/nav_admin_breweries"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminBreweryFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.admin.AdminBreweryFragment"
         android:label="@string/menu_admin_breweries"
         tools:layout="@layout/fragment_admin_brewery" />
 
     <fragment
         android:id="@+id/nav_admin_events"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminEventFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.admin.AdminEventFragment"
         android:label="@string/menu_admin_events"
         tools:layout="@layout/fragment_admin_event" />
 
     <fragment
         android:id="@+id/nav_admin_places"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Admin.AdminPlaceFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.admin.AdminPlaceFragment"
         android:label="@string/menu_admin_places"
         tools:layout="@layout/fragment_admin_place" />
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.lemenestrel.FragmentAndVMs.Login.LoginFragment"
+        android:name="com.example.lemenestrel.fragmentAndVMs.login.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" >
         <action
