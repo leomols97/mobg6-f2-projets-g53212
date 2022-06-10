@@ -1,16 +1,15 @@
-package com.example.lemenestrel.FragmentAndVMs.Login
+package com.example.lemenestrel.fragmentAndVMs.login
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import androidx.preference.PreferenceManager
-import com.example.lemenestrel.FragmentAndVMs.Admin.FirebaseUserLiveData
-import com.example.lemenestrel.R
+import com.example.lemenestrel.fragmentAndVMs.admin.FirebaseUserLiveData
 
 class LoginViewModel : ViewModel() {
 
+    // Only for the organisation of the code. Companion a bit like private
     companion object {
-        val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
+        const val text = "Ceci est la section où administrer les données relatives au Ménestrel"
     }
 
     enum class AuthenticationState {
@@ -30,12 +29,12 @@ class LoginViewModel : ViewModel() {
      * to see (Android fact or California fact). If there is no logged in user or if the user has
      * not set a preference, defaults to showing Android facts.
      */
-    fun getFactToDisplay(context: Context): String {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val factTypePreferenceKey = context.getString(R.string.preference_fact_type_key)
-        //val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
-        //val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
+    fun displayWelcomeMessage(context: Context): String {
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+//        val factTypePreferenceKey = context.getString(R.string.preference_fact_type_key)
+//        //val defaultFactType = context.resources.getStringArray(R.array.fact_type)[0]
+//        //val funFactType = sharedPreferences.getString(factTypePreferenceKey, defaultFactType)
 
-        return androidFacts
+        return text
     }
 }

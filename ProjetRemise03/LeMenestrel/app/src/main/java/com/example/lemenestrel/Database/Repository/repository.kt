@@ -1,6 +1,4 @@
-package com.example.lemenestrel.Database.Repository
-
-import com.firebase.ui.auth.AuthUI
+package com.example.lemenestrel.database.repository
 
 //class repository(private val database: events) {
 //

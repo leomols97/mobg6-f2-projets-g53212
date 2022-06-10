@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Artists
+package com.example.lemenestrel.fragmentAndVMs.artists
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Breweries
+package com.example.lemenestrel.fragmentAndVMs.breweries
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

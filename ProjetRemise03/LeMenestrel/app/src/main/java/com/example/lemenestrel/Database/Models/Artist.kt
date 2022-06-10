@@ -1,13 +1,14 @@
-package com.example.lemenestrel.Database.Models
+package com.example.lemenestrel.database.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.net.URL
 
-class Artist(val aName: MutableLiveData<String>,
-             val lName: MutableLiveData<String>,
-             val fName: MutableLiveData<String>,
-             val page: MutableLiveData<URL>)
+class Artist(
+    private val aName: MutableLiveData<String>,
+    private val lName: MutableLiveData<String>,
+    private val fName: MutableLiveData<String>,
+    private val page: MutableLiveData<URL>)
 {
     val _artistName: MutableLiveData<String> = aName
     val artistName: LiveData<String>

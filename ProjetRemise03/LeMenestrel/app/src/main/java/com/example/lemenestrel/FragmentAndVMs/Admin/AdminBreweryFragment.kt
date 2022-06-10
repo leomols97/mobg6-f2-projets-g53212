@@ -1,31 +1,21 @@
-package com.example.lemenestrel.FragmentAndVMs.Admin
+package com.example.lemenestrel.fragmentAndVMs.admin
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.lemenestrel.Database.Models.Beers
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentAdminBreweryBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 
 class AdminBreweryFragment : Fragment() {
 
     companion object {
         const val TAG = "AdminBreweryFragment"
-        const val SIGN_IN_RESULT_CODE = 1001
     }
 
     // Get a reference to the ViewModel scoped to this Fragment
@@ -47,7 +37,7 @@ class AdminBreweryFragment : Fragment() {
 //        auth = FirebaseAuth.getInstance()
 //        val uid = auth.currentUser?.uid
 //
-//        // Get the Firebase database for a specific table : Beers
+//        // Get the Firebase database for a specific table : Beer
 //        databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 //
 //        binding.upload.setOnClickListener {
@@ -63,7 +53,7 @@ class AdminBreweryFragment : Fragment() {
 //            val breweries = MutableLiveData<Array<String>>()
 //            val test = StringTokenizer(beerBreweries.toString(), ",").toList()
 //
-//            //<val beer = Beers(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
+//            //<val beer = Beer(beerName, beerType, test, beerAlcool, beerEbc, beerIbu)
 //        }
 
         return binding.root
@@ -83,7 +73,7 @@ class AdminBreweryFragment : Fragment() {
 //    lateinit var storage: StorageReference
 //    // To make the picture upload possible
 //    private fun uploadPicture() {
-//        storage = FirebaseStorage.getInstance().reference.child("PictureFolder")
+//        storage = FirebaseStorage.getInstance().reference.child("BeersPictures")
 //        binding.selectPicture.setOnClickListener {
 //            selectPicture()
 //        }
@@ -104,7 +94,7 @@ class AdminBreweryFragment : Fragment() {
 //                val pictureData = data!!.getData()
 //                val pictureNameInApp = binding.pictureName.text
 //                val pictureNameInFirebase: StorageReference =
-//                    storage.child("beer_$pictureNameInApp")
+//                    storage.child(pictureNameInApp)
 //                binding.imageView.setImageURI(pictureData)
 //                binding.uploadPicture.setOnClickListener {
 //                    makeUpload(pictureNameInFirebase, pictureData)

@@ -3,7 +3,7 @@
     <style name="Theme.LeMenestrel" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/ocre</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -17,6 +17,13 @@
     <style name="Theme.LeMenestrel.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+<!--    Custom style-->
+    <style name="LeMenestrel" parent="Theme.AppCompat.Light.NoActionBar">
+<!--        <item name="windowActionBar">false</item>-->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/logomenestrel</item>
     </style>
 
     <style name="Theme.LeMenestrel.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

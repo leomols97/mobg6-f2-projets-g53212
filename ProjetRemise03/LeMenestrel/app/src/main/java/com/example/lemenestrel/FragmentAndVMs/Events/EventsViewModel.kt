@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Events
+package com.example.lemenestrel.fragmentAndVMs.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

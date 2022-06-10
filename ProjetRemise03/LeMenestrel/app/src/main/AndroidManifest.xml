@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:uses-permissionandroid="http://schemas.android.com/apk/distribution"
     package="com.example.lemenestrel">
 <!--    Permissions to be able to read and write on Firebase on internet-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -17,10 +17,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:screenOrientation="sensor"
             android:theme="@style/Theme.LeMenestrel.NoActionBar">
+            <!--            android:theme="@style/LeMenestrel">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,5 +29,4 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

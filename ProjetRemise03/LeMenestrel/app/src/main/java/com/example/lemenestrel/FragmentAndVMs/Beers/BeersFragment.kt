@@ -1,138 +1,197 @@
-package com.example.lemenestrel.FragmentAndVMs.Beers
+package com.example.lemenestrel.fragmentAndVMs.beers
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.activity.viewModels
-import androidx.databinding.BindingAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.lemenestrel.Database.Models.Beers
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lemenestrel.database.models.Beer
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.ItemBeerBinding
-import com.google.firebase.database.*
+import com.example.lemenestrel.isOnline
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_beers.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-const val BEER_NAME = "beer name"
 
-class BeersFragment : Fragment() {
+class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
 
     companion object {
-        const val TAG = "BeerFragment"
+        const val TAG = "BeersFragment"
         const val SIGN_IN_RESULT_CODE = 1001
     }
 
-    // Create an instance of the ViewModel Factory.
-//    val application = requireNotNull(this.activity).application
-//    val databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
-//    val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
-//    val viewModelFactory = BeersViewModelFactory(databaseReference, application)
-
-    private var _binding: FragmentBeersBinding? = null
-    //    private lateinit var databaseReference: DatabaseReference
-//    private val beersViewModel by viewModels<BeersViewModel> {
-//        BeersViewModelFactory(application)
-//    }
-
-    // Get a reference to the ViewModel associated with this fragment.
-//    val sleepTrackerViewModel =
-//        ViewModelProvider(
-//            this, viewModelFactory).get(SleepTrackerViewModel::class.java)
-
-    // This property is only valid between onCreateView and
+    // This is only valid between onCreateView and
     // onDestroyView.
+    private var _binding: FragmentBeersBinding? = null
     private val binding get() = _binding!!
+    private var _bindingItem: ItemBeerBinding? = null
 
-    private lateinit var itemBeerBinding: ItemBeerBinding
+    // References the Firebase folder with all the beer pictures
+    private val picturesReference = FirebaseStorage.getInstance().reference
+
+//    private val beersViewModel: BeersViewModel by lazy {
+//        val activity = requireNotNull(this.activity) {
+//            "You can only access the viewModel after onActivityCreated()"
+//        }
+//        ViewModelProvider(this, BeersViewModelFactory(/*activity.application*/))
+//            .get(BeersViewModel::class.java)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val beersViewModel =
-            ViewModelProvider(this)[BeersViewModel::class.java]
 
         _binding = FragmentBeersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textBeers
-//        galleryViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
 
-        binding.buttonLoadBeer.setOnClickListener {
-//            val beerName: String = binding.beerNameTextView.text.toString()
-//            if (beerName.isNotEmpty()) {
-            readData(/*beerName*/)
-//            } else {
-//                Toast.makeText(
-//                    requireActivity(),
-//                    "Entre un nom de bière  \uD83D\uDE03",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-        }
+        // These are trials to make the ViewBinding, but failed
 
-        itemBeerBinding.buttonLoadBeer.setOnClickListener {
-            val beerPicture =  itemBeerBinding.beerPictureItem.toString()
-            val storageReference = FirebaseStorage.getInstance().reference.child("PictureFolder/beer_EFZGB")
-        }
 
-//        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
-//        which displays the contents sequentially */
-//        val headerAdapter = HeaderAdapter()
-//        val beersAdapter = BeersAdapter { flower -> adapterOnClick(flower) }
-//        val concatAdapter = ConcatAdapter(headerAdapter)
+
+        // Specify the current activity as the lifecycle owner of the binding.
+        // This is necessary so that the binding can observe LiveData updates.
+//        binding.lifecycleOwner = this
+//        //Get a reference to the ViewModel associated with this fragment.
+//        val viewModelFactory = BeersViewModelFactory()
+//        val beersViewModel = ViewModelProvider(this, viewModelFactory).get(BeersViewModel::class.java)v
 //
-//        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-//        recyclerView.adapter = concatAdapter
+//        val beersAdapter = BeersAdapter(BeersListener { beerName ->
+//            Toast.makeText(context, "${beerName}", Toast.LENGTH_LONG).show()
+//            beersViewModel.onBeerClicked(beerName)
+//        })
 //
-//        beersViewModel.beersLiveData.observe(this, {
+//        binding.recyclerViewBeers.adapter = beersAdapter
+//
+//        beersViewModel.beersList.observe(viewLifecycleOwner, Observer {
 //            it?.let {
-//                beersAdapter.submitList(it as MutableList<Beers>)
-//                headerAdapter.updateBeersCount(it.size)
+//                beersAdapter.submitList(it)
 //            }
 //        })
+
+//        beersViewModel.navigateToBeerDetail.observe(viewLifecycleOwner, Observer { beerName ->
+//            beerName?.let {
+//                this.findNavController().navigate(
+//                    BeersFragmentDirections.actionNavBeersToBeerDetailFragment(beerName))
+//                beersViewModel.onBeerDetailNavigated()
+//            }
+//        })
+//        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+//        binding.recyclerViewBeers.layoutManager = manager
+
+//        val binding: FragmentBeersBinding =
+//            DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_beers)
+//
+//        binding.lifecycleOwner = this
+//
+//        binding.beersViewModel = beersViewModel
+//
+//        val dao: Dao = Dao()
+//        val beers = dao.getBeers()
+//        val picturesUrls = mutableListOf<String>()
+//        beers?.let {
+//            for (beer in it) {
+//                picturesUrls.add(beer.Picture)
+//            }
+//        }
+//        val beersAdapter = BeersAdapter2(picturesUrls, WeakReference(this))
+//        binding.recyclerViewBeers.adapter = beersAdapter
+//
+//        beersViewModel.fetchBeersFeed()
+
+        handlingNoInternetConnexion()
+
+        showListBeers()
         return root
     }
 
-    private fun readData(/*beerName: String*/) {
-        val databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
-        databaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
+    private fun handlingNoInternetConnexion() {
+        if (isOnline(requireContext())) {
+            binding.noInternetConnection.visibility = View.GONE
+            binding.reloadButton.visibility = View.GONE
+            showListBeers()
+        } else {
+            binding.noInternetConnection.visibility = View.VISIBLE
+            binding.reloadButton.visibility = View.VISIBLE
+            binding.reloadButton.setOnClickListener {
+                if (isOnline(requireContext())) {
+                    binding.noInternetConnection.visibility = View.GONE
+                    binding.reloadButton.visibility = View.GONE
+                    showListBeers()
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "Vous n'êtes toujours pas connecté à internet \uD83D\uDE09",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun showListBeers() = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val pictures = picturesReference.child("BeersPictures/").listAll().await()
+            val beers = getBeers()
+            val picturesUrls = mutableListOf<String>()
+            val beersData = mutableListOf<Beer>()
+            for (picture in pictures.items) {
+                val url = picture.downloadUrl.await()
+                picturesUrls.add(url.toString())
+            }
+            for (beer in beers) {
+                beersData.add(beer)
+            }
+            withContext(Dispatchers.Main) {
+                val beersAdapter = BeersAdapter(picturesUrls, beersData)
+                // This is the manner to call the RecyclerView. Declaring this
+                // private lateinit var recyclerView: RecyclerView
+                // won't let me apply { } on it
+                recycler_view_beers.apply {
+                    adapter = beersAdapter
+                    layoutManager = LinearLayoutManager(requireActivity())
+                }
+            }
+        } catch (e :Exception) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getBeers(): List<Beer> {
+        val beers: MutableList<Beer> = mutableListOf()
+        val ref = FirebaseDatabase.getInstance().getReference("Beers")
+        ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val beers: MutableList<Beers> = mutableListOf()
-                    val children = dataSnapshot!!.children
+                    val children = dataSnapshot.children
                     children.forEach {
                         // This returns every brewery in a single String
                         val breweriesString: Array<String> = arrayOf(it.child("breweries").value.toString())
                         val beerName = it.child("name").value.toString()
                         val beerType = it.child("type").value.toString()
-                        val beerAlcool = Integer.parseInt(it.child("alcool").value.toString())
+                        val beerAlcool = it.child("alcool").value.toString().toDouble()
                         val beerEbc = Integer.parseInt(it.child("ebc").value.toString())
                         val beerIbu = Integer.parseInt(it.child("ibu").value.toString())
                         val beerPicture = it.child("picture").value.toString()
 
-                        val beer = Beers(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
-                        beers.add(beer)
+                        val beer = Beer(beerName, beerType, beerAlcool, breweriesString.toMutableList(), beerEbc, beerIbu, beerPicture)
 
-                        binding.beerName.text = beer.Name
-                        binding.beerAlcool.text = beer.Alcool.toString()
-                        binding.beerEbc.text = beer.EBC.toString()
-                        binding.beerIbu.text = beer.IBU.toString()
-                        binding.beerType.text = beer.Type
-                        // Simply to delete '[' and ']' that starts and end the string that should be an array
-                        var breweries1 = beer.Breweries.toString()
-                        breweries1 = breweries1.filterNot { it == '[' }
-                        breweries1 = breweries1.filterNot { it == ']' }
-                        binding.beerBreweries.text = breweries1
+                        beers.add(beer)
                     }
                 }
             }
@@ -140,21 +199,20 @@ class BeersFragment : Fragment() {
                 throw error.toException()
             }
         })
+        return beers
     }
-
-//    // Opens BeerDetailActivity when a RecyclerView item is clicked
-//    private fun adapterOnClick(beer: Beers) {
-//        val intent = Intent(this, BeerDetailActivity()::class.java)
-//        intent.putExtra(BEER_NAME, beer.Name)
-//        val intent = Intent(this, BicycleDetailed::class.java)
-//        intent.putExtra(listBicycle)[position]
-//        tv_item_name.setText(intent.getStringExtra(EXTRA_NAME))
-//        tv_item_detail.setText(intent.getStringExtra(EXTRA_DETAILED))
-//        startActivity(intent)
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+    // region NewsFeedRecyclerViewAdapter.NewsFeedItemInterface
+//    override fun onBeerClicked(url: String) {
+//        val intent = Intent(this, DetailActivity::class.java).apply {
+//            putExtra(DetailActivity.ARG_URL, url)
+//        }
+//
+//        startActivity(intent)
+//    }
 }

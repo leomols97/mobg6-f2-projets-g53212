@@ -1,10 +1,10 @@
-package com.example.lemenestrel.FragmentAndVMs.Admin
+package com.example.lemenestrel.fragmentAndVMs.admin
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceFragmentCompat
-import com.example.lemenestrel.FragmentAndVMs.Login.LoginViewModel
+import com.example.lemenestrel.fragmentAndVMs.login.LoginViewModel
 import com.example.lemenestrel.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -18,9 +18,5 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }

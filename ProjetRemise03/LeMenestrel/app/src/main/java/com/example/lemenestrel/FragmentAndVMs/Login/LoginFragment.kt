@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Login
+package com.example.lemenestrel.fragmentAndVMs.login
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.lemenestrel.R
 import com.example.lemenestrel.databinding.FragmentLoginBinding
+import com.example.lemenestrel.isOnline
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.firebase.ui.auth.IdpResponse as IdpResponse1
@@ -42,7 +44,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
 
-        binding.authButton.setOnClickListener { launchSignInFlow() }
+        handlingNoInternetConnexion()
 
         return binding.root
     }
@@ -57,21 +59,33 @@ class LoginFragment : Fragment() {
         navController = findNavController()
     }
 
+    private fun handlingNoInternetConnexion() {
+        if (isOnline(requireContext())) {
+            binding.authButton.setOnClickListener { launchSignInFlow() }
+        } else {
+            Toast.makeText(
+                requireActivity(),
+                "Vous n'êtes pas connecté à internet \uD83D\uDE22",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun goToWhichAdminFragment(view: View) {
         binding.goToAdminBeer.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_beer);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_beers);
         }
         binding.goToAdminArtist.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_artist);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_artists);
         }
         binding.goToAdminBrewery.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_brewery);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_breweries);
         }
         binding.goToAdminEvent.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_event);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_events);
         }
         binding.goToAdminPlace.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_place);
+            Navigation.findNavController(view).navigate(R.id.action_nav_login_to_nav_admin_places);
         }
     }
 
@@ -81,43 +95,50 @@ class LoginFragment : Fragment() {
      * If there is no logged in user: show a login button
      */
     private fun observeAuthenticationState() {
-        val factToDisplay = viewModel.getFactToDisplay(requireContext())
+        val factToDisplay = viewModel.displayWelcomeMessage(requireContext())
 
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
             when (authenticationState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
-                    binding.welcomeText.text = getFactWithPersonalization(factToDisplay)
-
-                    // Logout don't need any internet connection
-                    binding.authButton.text = getString(R.string.logout_button_text)
-                    binding.authButton.setOnClickListener {
-                        AuthUI.getInstance().signOut(requireContext())
-                    }
-                    binding.goToAdminBeer.visibility = View.VISIBLE
-                    binding.goToAdminArtist.visibility = View.VISIBLE
-                    binding.goToAdminBrewery.visibility = View.VISIBLE
-                    binding.goToAdminEvent.visibility = View.VISIBLE
-                    binding.goToAdminPlace.visibility = View.VISIBLE
-                }
-                else -> {
-                    binding.welcomeText.text = factToDisplay
-
-                    binding.authButton.text = getString(R.string.login_button_text)
-                    binding.authButton.setOnClickListener {
-                        launchSignInFlow()
-                    }
-                    binding.goToAdminBeer.visibility = View.GONE
-                    binding.goToAdminArtist.visibility = View.GONE
-                    binding.goToAdminBrewery.visibility = View.GONE
-                    binding.goToAdminEvent.visibility = View.GONE
-                    binding.goToAdminPlace.visibility = View.GONE
-                }
+                    logoutLayoutTexts(factToDisplay)
+                } else -> {
+                loginLayoutTexts(factToDisplay)
+            }
             }
         })
     }
 
+    private fun loginLayoutTexts(factToDisplay: String) {
+        binding.welcomeText.text = factToDisplay
 
-    private fun getFactWithPersonalization(fact: String): String {
+        binding.authButton.text = getString(R.string.login_button_text)
+        binding.authButton.setOnClickListener {
+            launchSignInFlow()
+        }
+        binding.goToAdminBeer.visibility = View.GONE
+        binding.goToAdminArtist.visibility = View.GONE
+        binding.goToAdminBrewery.visibility = View.GONE
+        binding.goToAdminEvent.visibility = View.GONE
+        binding.goToAdminPlace.visibility = View.GONE
+    }
+
+    private fun logoutLayoutTexts(factToDisplay: String) {
+        binding.welcomeText.text = loggedInWelcomeText(factToDisplay)
+
+        // Logout don't need any internet connection
+        binding.authButton.text = getString(R.string.logout_button_text)
+        binding.authButton.setOnClickListener {
+            AuthUI.getInstance().signOut(requireContext())
+        }
+        binding.goToAdminBeer.visibility = View.VISIBLE
+        binding.goToAdminArtist.visibility = View.VISIBLE
+        binding.goToAdminBrewery.visibility = View.VISIBLE
+        binding.goToAdminEvent.visibility = View.VISIBLE
+        binding.goToAdminPlace.visibility = View.VISIBLE
+    }
+
+
+    private fun loggedInWelcomeText(fact: String): String {
         return String.format(
             resources.getString(
                 R.string.welcome_message_authed,

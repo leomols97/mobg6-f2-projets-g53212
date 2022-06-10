@@ -1,4 +1,4 @@
-package com.example.lemenestrel.FragmentAndVMs.Admin
+package com.example.lemenestrel.fragmentAndVMs.admin
 
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.FirebaseAuth

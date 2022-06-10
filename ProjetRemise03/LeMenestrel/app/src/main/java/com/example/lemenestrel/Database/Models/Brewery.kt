@@ -1,13 +1,14 @@
-package com.example.lemenestrel.Database.Models
+package com.example.lemenestrel.database.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.net.URL
 
-class Brewery(val breName: MutableLiveData<String>,
-             val beS: MutableLiveData<List<String>>,
-             val pl: MutableLiveData<Place>,
-             val page: MutableLiveData<URL>)
+class Brewery(
+    private val breName: MutableLiveData<String>,
+    private val beS: MutableLiveData<List<String>>,
+    private val pl: MutableLiveData<Place>,
+    private val page: MutableLiveData<URL>)
 {
     val _breweryName: MutableLiveData<String> = breName
     val breweryName: LiveData<String>
