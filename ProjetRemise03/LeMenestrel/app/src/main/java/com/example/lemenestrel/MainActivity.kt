@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handlingEmailButton() {
         val message =
-            "A envoyer à leopodl@menestre.be" +
+            "A envoyer à leopold@menestre.be" +
                     "\n\nSujet :" +
                     "\n\nA propos de (un événement, une brasserie, un artiste) :\n" +
                     "\n\nQuels sont tes conseils ? \n" +

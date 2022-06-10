@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
 class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
 
     companion object {
@@ -114,7 +113,7 @@ class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
 
         handlingNoInternetConnexion()
 
-        showListBeers()
+        fetchListBeers()
         return root
     }
 
@@ -122,7 +121,7 @@ class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
         if (isOnline(requireContext())) {
             binding.noInternetConnection.visibility = View.GONE
             binding.reloadButton.visibility = View.GONE
-            showListBeers()
+            fetchListBeers()
         } else {
             binding.noInternetConnection.visibility = View.VISIBLE
             binding.reloadButton.visibility = View.VISIBLE
@@ -130,7 +129,7 @@ class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
                 if (isOnline(requireContext())) {
                     binding.noInternetConnection.visibility = View.GONE
                     binding.reloadButton.visibility = View.GONE
-                    showListBeers()
+                    fetchListBeers()
                 } else {
                     Toast.makeText(
                         requireActivity(),
@@ -142,8 +141,11 @@ class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
         }
     }
 
-    private fun showListBeers() = CoroutineScope(Dispatchers.IO).launch {
+    // Fetches the database beers data through a Coroutine because the database is on internet
+    // and transfer them to the Adapter
+    private fun fetchListBeers() = CoroutineScope(Dispatchers.IO).launch {
         try {
+            // Await only to have it in memory
             val pictures = picturesReference.child("BeersPictures/").listAll().await()
             val beers = getBeers()
             val picturesUrls = mutableListOf<String>()
