@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +27,11 @@ class AdminBeerFragment : Fragment() {
 
     companion object {
         const val TAG = "AdminBeerFragment"
-        const val SIGN_IN_RESULT_CODE = 1001
+
         // Status for the picture upload success
         val IMAGE_BACK = 1
         // Only emojis to brighten up the app :)
         private var emojìWink = "\uD83D\uDE09"
-        private var emojìSady = "\uD83D\uDE29"
         private var emojìSad = "\uD83D\uDE22"
         private var emojìBeer = "\uD83C\uDF7A"
         private var emojìSmile = "🙂"
@@ -43,8 +41,8 @@ class AdminBeerFragment : Fragment() {
     private val viewModel by viewModels<AdminBeerViewModel>()
 
     // Link the dao to use it into the ViewModel
-    val dao: Dao = Dao()
-    val adminBeerViewModel: AdminBeerViewModel = AdminBeerViewModel(dao)
+    private val dao: Dao = Dao()
+    private val adminBeerViewModel: AdminBeerViewModel = AdminBeerViewModel(dao)
 
     // This is only valid between onCreateView and
     // onDestroyView.
@@ -79,7 +77,7 @@ class AdminBeerFragment : Fragment() {
                         binding.beerNameAdmin.text.toString()
                     )?.Name.toString()) {
                     val beerName = binding.beerNameAdmin.text.toString()
-                    val beerDataReference = FirebaseDatabase.getInstance().getReference()
+                    val beerDataReference = FirebaseDatabase.getInstance().reference
                         .child("Beers").child(beerName)
                     beerDataReference.removeValue().addOnCompleteListener {
                         Toast.makeText(
@@ -127,7 +125,7 @@ class AdminBeerFragment : Fragment() {
         }
     }
 
-    lateinit var storage: StorageReference
+    private lateinit var storage: StorageReference
     // To make the picture upload possible
     private fun  uploadBeer() {
         storage = FirebaseStorage.getInstance().reference.child("BeersPictures")
@@ -178,7 +176,7 @@ class AdminBeerFragment : Fragment() {
                 databaseReference = FirebaseDatabase.getInstance().getReference("Beers")
 
                 val pictureData = data!!.getData()
-                var pictureNameInApp = binding.beerNameAdmin.text.toString()
+                val pictureNameInApp = binding.beerNameAdmin.text.toString()
                 val pictureNameInFirebase: StorageReference = storage.child(pictureNameInApp)
                 binding.beerPictureAdmin.setImageURI(pictureData)
                 binding.uploadBeerAdmin.setOnClickListener {
@@ -199,13 +197,13 @@ class AdminBeerFragment : Fragment() {
 
     private fun makeBeerInfosUpload(uid: String?) {
         try {
-            var beerName: String = binding.beerNameAdmin.text.toString()
-            var beerType: String = binding.beerTypeAdmin.text.toString()
-            var beerAlcool: Int = binding.beerAlcoolAdmin.text.toString().toInt()
-            var beerBreweries: String = binding.beerBreweriesAdmin.text.toString()
-            var beerEbc: Int = binding.beerEbcAdmin.text.toString().toInt()
-            var beerIbu: Int = binding.beerIbuAdmin.text.toString().toInt()
-            var beerPicture: String = binding.beerPictureAdmin.toString()
+            val beerName: String = binding.beerNameAdmin.text.toString()
+            val beerType: String = binding.beerTypeAdmin.text.toString()
+            val beerAlcool: Double = binding.beerAlcoolAdmin.text.toString().toDouble()
+            val beerBreweries: String = binding.beerBreweriesAdmin.text.toString()
+            val beerEbc: Int = binding.beerEbcAdmin.text.toString().toInt()
+            val beerIbu: Int = binding.beerIbuAdmin.text.toString().toInt()
+            val beerPicture: String = binding.beerPictureAdmin.toString()
 
             // Make an array out of the breweries received
             val beBreweries = beerBreweries.split(",").toTypedArray()

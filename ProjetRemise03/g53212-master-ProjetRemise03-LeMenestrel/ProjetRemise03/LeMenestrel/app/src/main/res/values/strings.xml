@@ -43,6 +43,7 @@
     <string name="beer_alcool">Quantité d\'alcool</string>
     <string name="beer_breweries">Nom de la (des) brasserie(s)</string>
     <string name="beer_breweries_hint">Séparez les brasseries par des virgules uniquement</string>
+    <string name="beer_ebc_ibu_hint">Si non précisé, inscrivez \'0\' dans les champs EBC et IBU</string>
     <string name="beer_alcool_hint">Séparez les dixièmes avec un point</string>
     <string name="beer_picture_hint">N\'oubliez pas de sélectionner une photo</string>
     <string name="beer_ebc">EBC</string>

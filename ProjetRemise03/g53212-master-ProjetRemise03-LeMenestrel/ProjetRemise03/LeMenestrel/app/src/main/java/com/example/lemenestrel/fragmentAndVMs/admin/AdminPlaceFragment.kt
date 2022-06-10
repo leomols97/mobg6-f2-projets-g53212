@@ -16,7 +16,6 @@ class AdminPlaceFragment : Fragment() {
 
     companion object {
         const val TAG = "AdminPlaceFragment"
-        const val SIGN_IN_RESULT_CODE = 1001
     }
 
     // Get a reference to the ViewModel scoped to this Fragment

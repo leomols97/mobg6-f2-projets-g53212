@@ -1,18 +1,12 @@
 package com.example.lemenestrel.fragmentAndVMs.beers
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lemenestrel.database.dao.Dao
 import com.example.lemenestrel.database.models.Beer
 import com.example.lemenestrel.databinding.FragmentBeersBinding
 import com.example.lemenestrel.databinding.ItemBeerBinding
@@ -30,9 +24,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 
-const val BEER_NAME = "beer name"
-
-class BeersFragment : Fragment() {
+class BeersFragment : Fragment(), BeersAdapter2.BeersInterface {
 
     companion object {
         const val TAG = "BeersFragment"
@@ -44,18 +36,17 @@ class BeersFragment : Fragment() {
     private var _binding: FragmentBeersBinding? = null
     private val binding get() = _binding!!
     private var _bindingItem: ItemBeerBinding? = null
-    private val bindingItem get() = _bindingItem!!
 
     // References the Firebase folder with all the beer pictures
-    val picturesReference = FirebaseStorage.getInstance().reference
+    private val picturesReference = FirebaseStorage.getInstance().reference
 
-    private val beersViewModel: BeersViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "You can only access the viewModel after onActivityCreated()"
-        }
-        ViewModelProvider(this, BeersViewModelFactory(/*activity.application*/))
-            .get(BeersViewModel::class.java)
-    }
+//    private val beersViewModel: BeersViewModel by lazy {
+//        val activity = requireNotNull(this.activity) {
+//            "You can only access the viewModel after onActivityCreated()"
+//        }
+//        ViewModelProvider(this, BeersViewModelFactory(/*activity.application*/))
+//            .get(BeersViewModel::class.java)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,13 +57,18 @@ class BeersFragment : Fragment() {
         _binding = FragmentBeersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+        // These are trials to make the ViewBinding, but failed
+
+
+
         // Specify the current activity as the lifecycle owner of the binding.
         // This is necessary so that the binding can observe LiveData updates.
-        binding.lifecycleOwner = this
-        // Get a reference to the ViewModel associated with this fragment.
+//        binding.lifecycleOwner = this
+//        //Get a reference to the ViewModel associated with this fragment.
 //        val viewModelFactory = BeersViewModelFactory()
-//        val beersViewModel = ViewModelProvider(this, viewModelFactory).get(BeersViewModel::class.java)
-
+//        val beersViewModel = ViewModelProvider(this, viewModelFactory).get(BeersViewModel::class.java)v
+//
 //        val beersAdapter = BeersAdapter(BeersListener { beerName ->
 //            Toast.makeText(context, "${beerName}", Toast.LENGTH_LONG).show()
 //            beersViewModel.onBeerClicked(beerName)
@@ -86,17 +82,39 @@ class BeersFragment : Fragment() {
 //            }
 //        })
 
-        beersViewModel.navigateToBeerDetail.observe(viewLifecycleOwner, Observer { beerName ->
-            beerName?.let {
-                this.findNavController().navigate(
-                    BeersFragmentDirections.actionNavBeersToBeerDetailFragment(beerName))
-                beersViewModel.onBeerDetailNavigated()
-            }
-        })
-        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
-        binding.recyclerViewBeers.layoutManager = manager
+//        beersViewModel.navigateToBeerDetail.observe(viewLifecycleOwner, Observer { beerName ->
+//            beerName?.let {
+//                this.findNavController().navigate(
+//                    BeersFragmentDirections.actionNavBeersToBeerDetailFragment(beerName))
+//                beersViewModel.onBeerDetailNavigated()
+//            }
+//        })
+//        val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+//        binding.recyclerViewBeers.layoutManager = manager
+
+//        val binding: FragmentBeersBinding =
+//            DataBindingUtil.setContentView(requireActivity(), R.layout.fragment_beers)
+//
+//        binding.lifecycleOwner = this
+//
+//        binding.beersViewModel = beersViewModel
+//
+//        val dao: Dao = Dao()
+//        val beers = dao.getBeers()
+//        val picturesUrls = mutableListOf<String>()
+//        beers?.let {
+//            for (beer in it) {
+//                picturesUrls.add(beer.Picture)
+//            }
+//        }
+//        val beersAdapter = BeersAdapter2(picturesUrls, WeakReference(this))
+//        binding.recyclerViewBeers.adapter = beersAdapter
+//
+//        beersViewModel.fetchBeersFeed()
 
         handlingNoInternetConnexion()
+
+        showListBeers()
         return root
     }
 
@@ -160,13 +178,13 @@ class BeersFragment : Fragment() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val children = dataSnapshot!!.children
+                    val children = dataSnapshot.children
                     children.forEach {
                         // This returns every brewery in a single String
                         val breweriesString: Array<String> = arrayOf(it.child("breweries").value.toString())
                         val beerName = it.child("name").value.toString()
                         val beerType = it.child("type").value.toString()
-                        val beerAlcool = Integer.parseInt(it.child("alcool").value.toString())
+                        val beerAlcool = it.child("alcool").value.toString().toDouble()
                         val beerEbc = Integer.parseInt(it.child("ebc").value.toString())
                         val beerIbu = Integer.parseInt(it.child("ibu").value.toString())
                         val beerPicture = it.child("picture").value.toString()
@@ -188,4 +206,13 @@ class BeersFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    // region NewsFeedRecyclerViewAdapter.NewsFeedItemInterface
+//    override fun onBeerClicked(url: String) {
+//        val intent = Intent(this, DetailActivity::class.java).apply {
+//            putExtra(DetailActivity.ARG_URL, url)
+//        }
+//
+//        startActivity(intent)
+//    }
 }

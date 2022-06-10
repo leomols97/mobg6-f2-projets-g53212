@@ -3,35 +3,15 @@ package com.example.lemenestrel
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Html
-import android.text.Spanned
 import android.util.Log
-import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.recyclerview.widget.RecyclerView
-//import com.example.android.trackmysleepquality.database.SleepNight
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.coroutines.coroutineContext
 
-/**
- * These functions create a formatted string that can be set in a TextView.
- */
-
-private val ONE_MINUTE_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES)
-private val ONE_HOUR_MILLIS = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS)
 private lateinit var dialog: Dialog
 
 /**
@@ -48,14 +28,6 @@ fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
             .format(systemTime).toString()
 }
-
-/**
- * ViewHolder that holds a single [TextView].
- *
- * A ViewHolder holds a view for the [RecyclerView] as well as providing additional information
- * to the RecyclerView such as where on the screen it was last drawn during scrolling.
- */
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
 
 fun isOnline(context: Context): Boolean {
     val connectivityManager =
@@ -79,7 +51,11 @@ fun isOnline(context: Context): Boolean {
     return false
 }
 
-
+// region ImageView
+@BindingAdapter("loadWithPicasso")
+fun loadWithPicasso(imageView: ImageView, imageUrl: String) {
+    Picasso.get().load(imageUrl).into(imageView)
+}
 
 fun showProgressDialog(context: Context) {
     dialog = Dialog(context)

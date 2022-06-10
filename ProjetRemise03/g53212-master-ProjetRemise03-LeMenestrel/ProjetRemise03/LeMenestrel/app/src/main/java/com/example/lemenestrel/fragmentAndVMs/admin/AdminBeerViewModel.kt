@@ -5,11 +5,7 @@ import androidx.lifecycle.map
 import com.example.lemenestrel.database.dao.Dao
 import com.example.lemenestrel.database.models.Beer
 
-class AdminBeerViewModel(val dao: Dao) : ViewModel() {
-
-    companion object {
-        val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
-    }
+class AdminBeerViewModel(private val dao: Dao) : ViewModel() {
 
     val beersLiveData = dao.getBeersList()
 

@@ -7,9 +7,14 @@
         <variable
             name="beer"
             type="com.example.lemenestrel.database.models.Beer"/>
+
         <variable
             name="clickListener"
             type="com.example.lemenestrel.fragmentAndVMs.beers.BeersListener" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.466" />
+<!--        app:loadWithPicasso="@{imageUrl}"-->
 
         <TextView
             android:id="@+id/beer_name_item"
@@ -34,13 +40,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/beer_name"
-            android:text="@{beer.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.564"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.105" />
+<!--        android:text="@{beer.name}"-->
 
         <TextView
             android:id="@+id/beer_ebc_item"
@@ -48,13 +54,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/beer_ebc"
-            android:text="@{beer.EBC}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.864"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.112" />
+<!--        android:text="@{beer.EBC}"-->
 
         <TextView
             android:id="@+id/beer_ibu_item"
@@ -62,13 +68,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/beer_ibu"
-            android:text="@{beer.IBU}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.853"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.43" />
+<!--        android:text="@{beer.IBU}"-->
 
         <TextView
             android:id="@+id/beer_type_item"
@@ -76,13 +82,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/beer_type"
-            android:text="@{beer.Type}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.539"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.377" />
+<!--        android:text="@{beer.Type}"-->
 
         <TextView
             android:id="@+id/beer_alcool_item"
@@ -90,13 +96,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/beer_alcool"
-            android:text="@{beer.Alcool}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.573"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/beer_name_item"
             app:layout_constraintVertical_bias="0.582" />
+<!--        android:text="@{beer.Alcool}"-->
 
         <TextView
             android:id="@+id/beer_breweries_item"
@@ -104,13 +110,13 @@
             android:layout_height="21dp"
             android:layout_margin="2dp"
             android:hint="@string/beer_breweries"
-            android:text="@{beer.breweries.toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.789"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.892" />
+<!--        android:text="@{beer.breweries.toString()}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

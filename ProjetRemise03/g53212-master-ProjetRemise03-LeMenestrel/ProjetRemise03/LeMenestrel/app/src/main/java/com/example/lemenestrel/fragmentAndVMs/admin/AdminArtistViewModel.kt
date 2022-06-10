@@ -9,7 +9,7 @@ import com.example.lemenestrel.R
 class AdminArtistViewModel : ViewModel() {
 
     companion object {
-        val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
+        const val androidFacts = "Ceci est la section où administrer les données relatives au Ménestrel"
     }
 
     enum class AuthenticationState {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:uses-permissionandroid="http://schemas.android.com/apk/distribution"
     package="com.example.lemenestrel">
 <!--    Permissions to be able to read and write on Firebase on internet-->
     <uses-permission android:name="android.permission.INTERNET"/>

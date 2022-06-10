@@ -1,25 +1,20 @@
 package com.example.lemenestrel.fragmentAndVMs.beers
 
+//import com.example.lemenestrel.fragmentAndVMs.beers.BeersAdapter.BeersViewHolder.Companion.from
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lemenestrel.R
 import com.example.lemenestrel.database.models.Beer
 import com.example.lemenestrel.fragmentAndVMs.beers.BeersAdapter.BeersViewHolder
-//import com.example.lemenestrel.fragmentAndVMs.beers.BeersAdapter.BeersViewHolder.Companion.from
-import com.example.lemenestrel.databinding.ItemBeerBinding
-import kotlinx.android.synthetic.main.fragment_beers.view.*
 import kotlinx.android.synthetic.main.item_beer.view.*
-import kotlinx.android.synthetic.main.rv_layout.view.*
 
-class BeersAdapter(val pictureUrls: List<String>, val beers: List<Beer>/*, val clickListener: BeersListener*/): RecyclerView.Adapter<BeersViewHolder>() {
+class BeersAdapter(private val pictureUrls: List<String>, val beers: List<Beer>/*, val clickListener: BeersListener*/): RecyclerView.Adapter<BeersViewHolder>() {
     //: ListAdapter<Beer, BeersViewHolder>(BeersDiffCallBack()) {
 
     companion object {

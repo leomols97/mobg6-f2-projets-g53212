@@ -18,34 +18,31 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_admin_beer.*
 
 /* Handles operations on beersLiveData and holds details about it. */
-class Dao() {
+class Dao {
 
     // Only emojis to brighten up the app :)
     private var emojìWink = "\uD83D\uDE09"
     private var emojìSady = "\uD83D\uDE29"
-    private var emojìSad = "\uD83D\uDE22"
-    private var emojìBeer = "\uD83C\uDF7A"
-    private var emojìSmile = "🙂"
 
     private val beersList = getBeers()
     private val beersLiveData = MutableLiveData(beersList)
 
-    fun getBeers(): List<Beer> {
+    private fun getBeers(): List<Beer> {
         val beers: MutableList<Beer> = mutableListOf()
         val ref = FirebaseDatabase.getInstance().getReference("Beers")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    val children = dataSnapshot!!.children
+                    val children = dataSnapshot.children
                     children.forEach {
                         // This returns every brewery in a single String
                         val breweriesString: Array<String> = arrayOf(it.child("breweries").value.toString())
                         val beerName = it.child("name").value.toString()
                         val beerType = it.child("type").value.toString()
-                        val beerAlcool = Integer.parseInt(it.child("alcool").value.toString())
+                        Log.i("TAG", "${it.child("alcool").value}")
+                        val beerAlcool = it.child("alcool").value.toString().toDouble()
                         val beerEbc = Integer.parseInt(it.child("ebc").value.toString())
                         val beerIbu = Integer.parseInt(it.child("ibu").value.toString())
                         val beerPicture = it.child("picture").value.toString()
@@ -177,14 +174,14 @@ class Dao() {
 //    }
 //
     companion object {
-        private var INSTANCE: Dao? = null
+//        private var INSTANCE: Dao? = null
 
-        fun getDao(): Dao {
-            return synchronized(Dao::class) {
-                val newInstance = INSTANCE ?: Dao()
-                INSTANCE = newInstance
-                newInstance
-            }
-        }
+//        fun getDao(): Dao {
+//            return synchronized(Dao::class) {
+//                val newInstance = INSTANCE ?: Dao()
+//                INSTANCE = newInstance
+//                newInstance
+//            }
+//        }
     }
 }

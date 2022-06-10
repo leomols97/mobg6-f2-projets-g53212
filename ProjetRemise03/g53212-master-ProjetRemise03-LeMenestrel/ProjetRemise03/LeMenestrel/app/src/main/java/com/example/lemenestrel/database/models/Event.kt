@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData // make changing the values of the data possible >< LiveData
 import com.google.type.DateTime
 
-class Event(val artS: MutableLiveData<List<Artist>>,
-            val breS: MutableLiveData<List<Brewery>>,
-            val pl: MutableLiveData<Place>,
-            val dT: MutableLiveData<DateTime>)
+class Event(
+    private val artS: MutableLiveData<List<Artist>>,
+    private val breS: MutableLiveData<List<Brewery>>,
+    private val pl: MutableLiveData<Place>,
+    private val dT: MutableLiveData<DateTime>)
 {
     val _artist: MutableLiveData<List<Artist>> = artS
     val artist: LiveData<List<Artist>>

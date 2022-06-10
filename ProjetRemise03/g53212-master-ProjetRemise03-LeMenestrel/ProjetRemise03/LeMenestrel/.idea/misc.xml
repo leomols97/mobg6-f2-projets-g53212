@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../../../../../../../layout/custom_preview.xml" value="0.2604298356510746" />
+        <entry key="../../../../../../../../../../../Library/Android/sdk/platforms/android-32/data/res/layout/activity_list_item.xml" value="0.29322916666666665" />
         <entry key="app/src/main/res/drawable-v24/custom_progress.xml" value="0.196" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.239" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.239" />
@@ -15,6 +16,7 @@
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1065" />
         <entry key="app/src/main/res/drawable/ic_menu_who.xml" value="0.239" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1065" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.2328125" />
         <entry key="app/src/main/res/layout/activity_detail_beer.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.2359375" />
@@ -23,7 +25,7 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.3128616333007812" />
         <entry key="app/src/main/res/layout/fragment_admin_artist.xml" value="0.215625" />
-        <entry key="app/src/main/res/layout/fragment_admin_beer.xml" value="0.22083333333333333" />
+        <entry key="app/src/main/res/layout/fragment_admin_beer.xml" value="0.2671590169270833" />
         <entry key="app/src/main/res/layout/fragment_admin_brewery.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_admin_event.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/fragment_admin_place.xml" value="0.215625" />

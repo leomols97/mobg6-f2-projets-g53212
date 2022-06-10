@@ -125,7 +125,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beer_type_admin" />
+            app:layout_constraintTop_toBottomOf="@+id/beer_ebc_ibu_hint" />
 
         <EditText
             android:id="@+id/beer_ibu_admin"
@@ -137,6 +137,17 @@
             app:layout_constraintHorizontal_bias="0.836"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/beer_alcool_hint" />
+
+        <TextView
+            android:id="@+id/beer_ebc_ibu_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/beer_ebc_ibu_hint"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/beer_type_admin" />
 
         <TextView
             android:id="@+id/beer_alcool_hint"

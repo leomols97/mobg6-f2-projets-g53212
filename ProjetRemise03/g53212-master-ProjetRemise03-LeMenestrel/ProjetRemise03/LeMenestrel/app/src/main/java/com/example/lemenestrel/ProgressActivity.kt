@@ -1,14 +1,8 @@
-package com.technical.myapplication
+package com.example.lemenestrel
 
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.lemenestrel.R
 
-class MainActivity : AppCompatActivity() {
+class ProgressActivity : AppCompatActivity() {
 //    private var CurrentProgress = 0
 //    private var progressBar: ProgressBar? = null
 //    private var StartProgress: Button? = null
