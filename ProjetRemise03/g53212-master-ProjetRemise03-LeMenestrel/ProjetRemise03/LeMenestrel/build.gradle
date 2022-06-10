@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlin_version = '1.7.0'
-//    ext.kotlin_version = '1.5.30'
+//    ext.kotlin_version = '1.7.0' // 09/06/2022 -> Works well too
+    ext.kotlin_version = '1.5.30'
     ext.compose_version = '1.0.1'
     repositories {
         google()

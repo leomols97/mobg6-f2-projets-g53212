@@ -29,7 +29,7 @@ class AdminBeerFragment : Fragment() {
         const val TAG = "AdminBeerFragment"
 
         // Status for the picture upload success
-        val IMAGE_BACK = 1
+        const val IMAGE_BACK = 1
         // Only emojis to brighten up the app :)
         private var emojìWink = "\uD83D\uDE09"
         private var emojìSad = "\uD83D\uDE22"
