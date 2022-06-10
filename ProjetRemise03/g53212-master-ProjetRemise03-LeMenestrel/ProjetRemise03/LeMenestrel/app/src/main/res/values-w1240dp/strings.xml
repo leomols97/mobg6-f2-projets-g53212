@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="title_fragment_beer">Voici les bières que nous avons déjà proposées au Ménestrel</string>
-    <string name="no_internet_connection">Pour charger les données depuis internet, veuillez vous connecter à internet</string>
-    <string name="reload">Recharger</string>
-</resources>
